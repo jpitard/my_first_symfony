@@ -12,9 +12,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('AdminBundle:Default:index.html.twig', [
-        	'name' => 'john doe'
-
-        	]);
+        return $this->render('AdminBundle:Default:index.html.twig');
     }
 }
