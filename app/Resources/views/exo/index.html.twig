@@ -1,0 +1,79 @@
+
+
+{% block body %}
+
+{{ dump(produits) }}
+    
+    <h1>Ma liste de produits</h1>
+
+    <p>********question 1********</p>
+
+
+    {% for produit in produits %}
+            <li >
+                <a>{{ produit.title }}</a>
+                <p>{{ produit.description }}</p>
+            </li>
+            
+    {% endfor %}
+
+    <p>********question 2********</p>
+
+    {% for produit in produits  %}
+
+       
+        {% if loop.first %}
+            {{ produit.description ~ " " ~ "Ceci est le premier produit" }} 
+        {% endif %}
+
+       <p>{{ produit.description }}</p>
+    
+    {% endfor %}
+
+     <p>********question 3********</p>
+     <span>  Nombre de produit : {{ produits | length }} </span>
+
+    <p>********question 4********</p>
+    <ul>
+        {% for produit in produits if produit.id == 4 %}
+            <li>{{ " titre par defaut de l'article " ~ produit.id }}</li>
+        {% endfor %}
+    </ul>
+    
+    <p>********question 5********</p>
+    {% for produit in produits | reverse %}
+        <li >
+            <a>{{ produit.title }}</a>
+            
+        </li>
+            
+    {% endfor %}
+
+    <p>********question 6********</p>
+    {% for produit in produits  %}
+            {% if (produit.id == 2 or produit.id == 3)  %}
+                 <p><a>{{ produit.title }}</a></p>
+            {% endif %}
+    {% endfor %}
+
+    <p>********question 7********</p>
+
+        {% set totalPrix = "" %}
+        {% set bisPrix = "" %}
+
+        {% for produit in produits  %}
+
+             {% set bisPrix = produit.prix %}
+             {% set totalPrix = totalPrix + bisPrix%}
+
+        {% endfor %}
+
+        le prix total des produits est de :{{ totalPrix }}
+       
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+   
+</style>
+{% endblock %}

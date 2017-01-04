@@ -1,0 +1,18 @@
+{% extends '../default_old/base.html.twig' %}
+
+{% block content %}
+
+    <p> Nom : {{ nom }} </p>
+    <p>Prenom : {{ prenom }}</p>
+    <p>Age : {{ age }}</p>
+
+    <p> <a href="{{ url('admin') }}">la home page</a></p>
+    {{ dump(nom) }}
+
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+
+</style>
+{% endblock %}

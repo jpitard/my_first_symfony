@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+
+   
+     	 <title> 
+            {% block title %}Mon super site  {% endblock %}
+         </title>
+        
+    </head>
+    <body>
+        
+        {% block menu %}
+            <ul class="nav nav-tabs">
+              <li role="presentation" class="active"><a href="#">Home</a></li>
+              <li role="presentation"><a href="#">Profile</a></li>
+              <li role="presentation"><a href="#">Messages</a></li>
+            </ul>
+        {% endblock %}
+
+
+        {% block titre %}
+        {% endblock %}
+    </body>
+</html>
