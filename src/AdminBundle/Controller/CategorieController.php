@@ -78,7 +78,7 @@ class CategorieController extends Controller
            1 => [
                "id" => 1,
                "title" => "Homme",
-               "description" => "lorem ipsum \n suite du contenu Vivamus pellentesque non nunc nec mattis. Donec et mauris orci. Cras ut sem commodo.",
+               "description" => "lorem ipsum suite du contenu Vivamus \n pellentesque non nunc nec mattis. \n Donec et mauris orci. Cras ut sem commodo.",
                "date_created" => new \DateTime('now'),
                "active" => true
            ],
@@ -92,7 +92,7 @@ class CategorieController extends Controller
            3 => [
                "id" => 3,
                "title" => "Enfant",
-               "description" => "lorem ipsum Vivamus pellentesque non nunc nec mattis. Donec et mauris orci. \n Cras ut sem commodo, posuere nisl quis.",
+               "description" => "lorem ipsum Vivamus pellentesque \n non nunc nec mattis. Donec et mauris orci. \n Cras ut sem commodo, posuere nisl quis.",
                "date_created" => new \DateTime('-1 Days'),
                "active" => false
            ],

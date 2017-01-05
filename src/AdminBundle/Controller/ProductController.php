@@ -74,6 +74,9 @@ class ProductController extends Controller
    public function getProducts($id = false){
 
        $bon_produit = [];
+       $bon_produits = [];
+       $moyenne_prix = '';
+       $somme_prix = '';
 
        $products = [
            [
@@ -119,7 +122,14 @@ class ProductController extends Controller
            return $bon_produit;
 
        }else{
-
+           
+           /*foreach ($products as $value){
+            
+               $somme_prix += $value['prix'];
+              
+           }
+           $moyenne_prix = $somme_prix / count($products);*/
+        
            return $products;
 
        }

@@ -32,17 +32,40 @@
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Date</th>
+                                <th>Prix moyenne</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            {# Debut calcul de la moyenne des prix #}
+                            
+                            {% set moyenne_prix = "" %}
+                            {% set somme_prix = "" %}
+                            {% for produit in produits %}
+                                 {% set  somme_prix = somme_prix + produit.prix %}
+                            {% endfor %}
+                            {% set moyenne_prix =  somme_prix / produits|length %}
+                            {# Fin calcul de la moyenne des prix #}
+                            
+                            {% set produit_moins_cher = 0 %}
+                            {% set prix = 0 %}
                             
                             {% for produit in produits %}
                                 <tr>
+                                    {# debut traitement prix moins cher #}
+                                    {% set prix = produit.prix   %}
+                                    
+                                    {# fin traitement prix moins cher #}
                                     <td>{{ produit.id }}</td>
-                                    <td>{{ produit.title }}</td>
+                                    <td>
+                                        {% if true %}
+                                        {% endif%}
+                                        {{ produit.title }}
+                                        
+                                    </td>
                                     <td>{{ produit.description }}</td>
                                     <td>{{ produit.date_created|date("d/m/Y") }}</td>
+                                    <td> {{ moyenne_prix | number_format(2) }} </td>
                                     <td>
                                         <a class="btn btn-success" href="{{ path('show', { id: produit.id }) }}">Voir</a>
                                         <a class="btn btn-info" href="{{ url('edit') }}">Editer</a>
@@ -50,7 +73,7 @@
                                     </td>
                                 </tr>
                             {% endfor %}
-                            
+                           
                         </tbody>
                         <tfoot>
                             <tr>
@@ -58,6 +81,7 @@
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Date</th>
+                                <th>Prix moyenne</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
