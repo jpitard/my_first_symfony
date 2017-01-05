@@ -21,7 +21,8 @@
             <div class="box">
                
                 <div class="box-header">
-                  <h3 class="box-title">Tous des Catégories {{  categories|length  }}
+                  <h3 class="box-title">Tous des Catégories
+                      <span class="badge">{{  categories|length  }}</span>
                   </h3>
                 </div>
                 <!-- /.box-header -->
@@ -43,7 +44,7 @@
                                 <tr>
                                     <td>{{ categorie.id }}</td>
                                     <td>{{ categorie.title }}</td>
-                                    <td>{{ categorie.description }}</td>
+                                    <td>{{ categorie.description | nl2br|striptags|slice(0,50) | raw }} <span class="badge"> {{ categorie.description | length }}</span></td>
                                     <td>{{ categorie.date_created|date("d/m/Y") }}</td>
                                     <td>
                                         {% if  categorie.active  %}
