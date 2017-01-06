@@ -17,7 +17,7 @@
 {% block content %}
     <div class="row">
         <div class="col-xs-12">
-             <p class="text-right"><a class="btn btn-success" href="{{ url('new') }}">Créer un nouveau produit</a></p>
+             <p class="text-right"><a class="btn btn-success" href="{{ url('product_create') }}">Créer un nouveau produit</a></p>
             <div class="box">
                
                 <div class="box-header">
@@ -31,7 +31,8 @@
                                 <th>Id</th>
                                 <th>Title</th>
                                 <th>Description</th>
-                                <th>Date</th>
+                                <th>Prix</th>
+                                {# <th>Date</th> #}
                                 <th>Prix moyenne</th>
                                 <th>Action</th>
                             </tr>
@@ -42,29 +43,36 @@
                             {% set moyenne_prix = "" %}
                             {% set somme_prix = "" %}
                             {% for produit in produits %}
-                                 {% set  somme_prix = somme_prix + produit.prix %}
+                                 {% set  somme_prix = somme_prix + produit.price %}
                             {% endfor %}
                             {% set moyenne_prix =  somme_prix / produits|length %}
                             {# Fin calcul de la moyenne des prix #}
                             
-                            {% set produit_moins_cher = 0 %}
-                            {% set prix = 0 %}
+                            {% set moins_cher = 0 %}
+                            {% set array_prix = [] %}
                             
-                            {% for produit in produits %}
+                            {% for key,produit in produits %}
                                 <tr>
                                     {# debut traitement prix moins cher #}
-                                    {% set prix = produit.prix   %}
-                                    
+                                    {% set array_prix = array_prix | merge({(key) : produit.price}) %}
+                                    {%  set moins_cher = array_prix %}
+
                                     {# fin traitement prix moins cher #}
                                     <td>{{ produit.id }}</td>
+
                                     <td>
-                                        {% if true %}
+                                        {% if   min(moins_cher) <= produit.price %}
+                                            {{ produit.title }}
+                                            <span class="label label-default"> moins cher </span>
+                                        {% else%}
+                                            {{ produit.title }}
                                         {% endif%}
-                                        {{ produit.title }}
+
                                         
                                     </td>
                                     <td>{{ produit.description }}</td>
-                                    <td>{{ produit.date_created|date("d/m/Y") }}</td>
+                                    <td>{{ produit.price }}</td>
+                                    <td>{# produit.date_created|date("d/m/Y") #}</td>
                                     <td> {{ moyenne_prix | number_format(2) }} </td>
                                     <td>
                                         <a class="btn btn-success" href="{{ path('show', { id: produit.id }) }}">Voir</a>
@@ -73,19 +81,21 @@
                                     </td>
                                 </tr>
                             {% endfor %}
-                           
+
                         </tbody>
                         <tfoot>
                             <tr>
                                <th>Id</th>
                                 <th>Title</th>
                                 <th>Description</th>
-                                <th>Date</th>
+                                <th>Prix</th>
+                                {# <th>Date</th> #}
                                 <th>Prix moyenne</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>
+
                 </div>
               <!-- /.box-body -->
             </div>

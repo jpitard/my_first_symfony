@@ -14,7 +14,6 @@
 
 {% endblock %}
 {% block content %}
-
     {# Affichage du message de success	#}
     {% for flash_message in app.session.flashBag.get('success') %}
         <div class="alert alert-success">
@@ -22,13 +21,49 @@
         </div>
     {% endfor %}
     {# form(formContact) #}
-    {{ form_start(formContact) }}
+    {{ form_start(formFeedback, {attr: {class: "toto", novalidate: "novalidate"}}) }}
+    <div class="row">
+
+        <div class="col-xs-4">
+            <div class="form-group">
+                {{ form_errors(formFeedback.page) }}
+                {{ form_label(formFeedback.page,"Url de la page")  }}
+                {{ form_widget(formFeedback.page,
+                                    {
+                                        attr:{
+
+                                        placeholder: "",
+                                        class: "form-control"
+                                    },
+                                        id: "form_page"
+                                    }
+                )
+                }}
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="form-group">
+                {{ form_errors(formFeedback.statut) }}
+                {{ form_label(formFeedback.statut,"Selectionnez le destinataire")  }}
+                {{ form_widget(formFeedback.statut, {attr: {class: "form-control"}})}}
+            </div>
+        </div>
+
+        <div class="col-xs-4">
+            <div class="form-group">
+                {{ form_errors(formFeedback.date) }}
+                {{ form_label(formFeedback.date,"Selectionnez le destinataire")  }}
+                {{ form_widget(formFeedback.date, {attr: {class: "form-control datepicker"}})}}
+            </div>
+        </div>
+    </div>
+
         <div class="row">
             <div class="col-xs-4">
                 <div class="form-group">
-                    {{ form_errors(formContact.lastname) }}
-                    {{ form_label(formContact.lastname, "Votre nom") }}
-                    {{ form_widget(formContact.lastname,
+                    {{ form_errors(formFeedback.lastname) }}
+                    {{ form_label(formFeedback.lastname, "Votre nom") }}
+                    {{ form_widget(formFeedback.lastname,
                                     {
                                         attr:{
 
@@ -42,9 +77,9 @@
             </div>
             <div class="col-xs-4">
                 <div class="form-group">
-                    {{ form_errors(formContact.firstname) }}
-                    {{ form_label(formContact.firstname,"Votre prenom")  }}
-                    {{ form_widget(formContact.firstname,
+                    {{ form_errors(formFeedback.firstname) }}
+                    {{ form_label(formFeedback.firstname,"Votre prenom")  }}
+                    {{ form_widget(formFeedback.firstname,
                                     {
                                         attr:{
 
@@ -58,9 +93,9 @@
             </div>
             <div class="col-xs-4">
                 <div class="form-group">
-                    {{ form_errors(formContact.email) }}
-                    {{ form_label(formContact.email,"Votre email")  }}
-                    {{ form_widget(formContact.email,
+                    {{ form_errors(formFeedback.email) }}
+                    {{ form_label(formFeedback.email,"Votre email")  }}
+                    {{ form_widget(formFeedback.email,
                                     {
                                         attr:{
 
@@ -74,13 +109,14 @@
                     }}
                 </div>
             </div>
+
         </div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="form-group">
-                    {{ form_errors(formContact.content) }}
-                    {{ form_label(formContact.content, "Votre texte") }}
-                    {{ form_widget(formContact.content,
+                    {{ form_errors(formFeedback.content) }}
+                    {{ form_label(formFeedback.content, "Votre texte") }}
+                    {{ form_widget(formFeedback.content,
                                     {
                                         attr:{
 
@@ -97,6 +133,6 @@
         </div>
 
         <button type="submit" class="btn btn-default">Valider</button>
-    {{ form_end(formContact) }}
+    {{ form_end(formFeedback) }}
 
 {% endblock %}
