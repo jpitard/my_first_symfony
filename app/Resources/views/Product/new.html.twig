@@ -1,0 +1,110 @@
+{% extends 'layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
+{% endblock %}
+
+{% block titleContent %}Liste des produits <small> </small>{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active"> <a href="{{ url('liste_produits') }}"> Produits </a> </li>
+    <li class="active"> <a href="{{ url('product_create') }}"> Créer </a> </li>
+
+{% endblock %}
+{% block content %}
+    {# Affichage du message de success	#}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    {# form(formContact) #}
+    {{ form_start(formProduct) }}
+    <div class="row">
+
+        <div class="col-xs-12">
+            <div class="form-group">
+                {{ form_errors(formProduct.title) }}
+                {{ form_label(formProduct.title,"Entrez le titre du produit")  }}
+                {{ form_widget(formProduct.title, {
+                    attr:{
+
+                        class: "form-control"
+                    },
+                    id: "form_title"
+                })
+                }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-xs-6">
+            <div class="form-group">
+                {{ form_errors(formProduct.price) }}
+                {{ form_label(formProduct.price,"Entrez le prix du produit")  }}
+                {{ form_widget(formProduct.price,
+                {
+                    attr:{
+
+                    class: "form-control"
+                },
+                    id: "form_price"
+                })
+                }}
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                {{ form_errors(formProduct.quantity) }}
+                {{ form_label(formProduct.quantity,"Entrez la quantité du produit")  }}
+                {{ form_widget(formProduct.quantity,
+                {
+                    attr:{
+
+                    class: "form-control"
+                },
+                    id: "form_quantity"
+                })
+
+
+                }}
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-group">
+                {{ form_errors(formProduct.description) }}
+                {{ form_label(formProduct.description, "Entrez la description du produit") }}
+                {{ form_widget(formProduct.description,
+                {
+                    attr:{
+
+                    placeholder: "Ecrivez votre texte ici",
+                    class: "form-control"
+                },
+                    id: "form_content"
+                })
+                }}
+
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <button type="submit" class="btn btn-primary btn-block">Ajouter</button>
+
+        </div>
+
+    </div>
+
+    {{ form_end(formProduct) }}
+
+{% endblock %}
