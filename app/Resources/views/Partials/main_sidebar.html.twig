@@ -28,7 +28,8 @@
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
         {% for onglet_principal in json %}
-          <li {% if onglet_principal.sous_onglet is defined %} class="treeview" {% endif %}>
+
+          <li {% if onglet_principal.sous_onglet is defined %} class="treeview active" {% elseif app.request.get('_route') == onglet_principal.route %} class=" active" {% endif %}>
             <a href="{{ onglet_principal.lien }}">
               <i class="fa fa-{{ onglet_principal.icone }}"></i>
               <span>{{ onglet_principal.intitule_onglet }}</span> {% if onglet_principal.sous_onglet is defined %}<i class="fa fa-angle-left pull-right"></i>{% endif %}

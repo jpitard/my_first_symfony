@@ -2,19 +2,23 @@
 
 {% block stylesheets %}
     {{ parent() }}
-
     <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
 {% endblock %}
 
-{% block titleContent %}Liste des produits <small> </small>{% endblock %}
+{% block titleContent %} Produits <small> </small>{% endblock %}
 
 {% block breadcrumb %}
 {{ parent() }}
-<li class="active"> <a href="{{ url('liste_produits') }}"> Produits </a> </li>
+<li class="active"> <a href="{{ url('product_list') }}"> Produits </a> </li>
 
 {% endblock %}
 
 {% block content %}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
     <div class="row">
         <div class="col-xs-12">
              <p class="text-right"><a class="btn btn-success" href="{{ url('product_create') }}">Créer un nouveau produit</a></p>
@@ -32,8 +36,6 @@
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Prix</th>
-                                {# <th>Date</th> #}
-                                <th>Prix moyenne</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -72,12 +74,10 @@
                                     </td>
                                     <td>{{ produit.description }}</td>
                                     <td>{{ produit.price }}</td>
-                                    <td>{# produit.date_created|date("d/m/Y") #}</td>
-                                    <td> {{ moyenne_prix | number_format(2) }} </td>
                                     <td>
-                                        <a class="btn btn-success" href="{{ path('show', { id: produit.id }) }}">Voir</a>
-                                        <a class="btn btn-info" href="{{ url('edit') }}">Editer</a>
-                                        <a class="btn btn-danger" href="{{ url('delete') }}">Supprimer</a>
+                                        <a class="btn btn-success" href="{{ path('product_show', { id: produit.id }) }}">Voir</a>
+                                        <a class="btn btn-info" href="{{ url('product_edit', { id: produit.id }) }}">Editer</a>
+                                        <a class="btn btn-danger" href="{{ url('product_remove', { id: produit.id } ) }}">Supprimer</a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -89,8 +89,6 @@
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Prix</th>
-                                {# <th>Date</th> #}
-                                <th>Prix moyenne</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -118,6 +116,7 @@
             $("#example1").DataTable();
         });
     </script>
+
 
 
 

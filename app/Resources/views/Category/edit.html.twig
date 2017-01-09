@@ -1,0 +1,93 @@
+{% extends 'layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
+{% endblock %}
+
+{% block titleContent %}Categories <small> </small>{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class=""> <a href="{{ url('categories_list') }}"> Categories </a> </li>
+    <li class="active">  Modification  </li>
+
+{% endblock %}
+{% block content %}
+
+    {#  form(formCategory)  #}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
+    {{ form_start(formCategory) }}
+    <div class="row">
+
+        <div class="col-xs-6">
+            <div class="form-group">
+                {{ form_errors(formCategory.title) }}
+                {{ form_label(formCategory.title,"Entrez le titre de votre categorie")  }}
+                {{ form_widget(formCategory.title,
+                {
+                    attr:{
+
+                    class: "form-control"
+                },
+                    id: "form_title"
+                })
+                }}
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                {{ form_errors(formCategory.position) }}
+                {{ form_label(formCategory.position,"Definir la position de la categorie")  }}
+                {{ form_widget(formCategory.position,
+                {
+                    attr:{
+
+                    class: "form-control"
+                },
+                    id: "form_position"
+                })
+
+
+                }}
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-group">
+                {{ form_errors(formCategory.description) }}
+                {{ form_label(formCategory.description, "Entrez la description du produit") }}
+                {{ form_widget(formCategory.description,
+                {
+                    attr:{
+
+                    placeholder: "Ecrivez votre texte ici",
+                    class: "form-control"
+                },
+                    id: "form_description"
+                })
+                }}
+
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <button type="submit" class="btn btn-primary btn-block">Ajouter</button>
+
+        </div>
+
+    </div>
+
+    {{ form_end(formCategory) }}
+
+{% endblock %}

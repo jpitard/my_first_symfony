@@ -10,8 +10,8 @@
 
 {% block breadcrumb %}
 {{ parent() }}
-<li class="active"> <a href="{{ url('liste_produits') }}"> Produits </a> </li>
-    <li class="active"> <a href="{{ url('liste_produits') }}"> {{ produit.title }} </a> </li>
+    <li class=""> <a href="{{ url('product_list') }}"> Produits </a> </li>
+    <li class="active">  {{ produit.title }}  </li>
 {% endblock %}
 
 {% block content %}
@@ -43,14 +43,6 @@
 {% block javascripts %}
 
     {{ parent() }}
-
-    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
-    <script>
-        $(function () {
-            $("#example1").DataTable();
-        });
-    </script>
 
 
 

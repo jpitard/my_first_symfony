@@ -6,6 +6,7 @@ use AdminBundle\Entity\Product;
 use AdminBundle\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ProductController extends Controller
 {
     /**
-     * @Route("/", name="liste_produits")
+     * @Route("/", name="product_list")
      */
     public function indexAction()
     {
@@ -58,21 +59,14 @@ class ProductController extends Controller
             return $this->redirectToRoute('product_create');
         }
 
-        return $this->render('Product/create.html.twig', ['formProduct' => $formProduct->createView()]);
+        return $this->render('Product/new.html.twig', ['formProduct' => $formProduct->createView()]);
 
     }
 
-    /**
-     * @Route("/new", name="new")
-     */
-    public function newAction()
-    {
 
-
-    }
 
     /**
-     * @Route("/{id}", name="show")
+     * @Route("/{id}", name="product_show")
      */
     public function showAction($id)
     {
@@ -95,40 +89,69 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/edit", name="edit")
+     * @Route("/editer/{id}", name="product_edit")
      */
-    public function editAction(Request $request)
+    public function editAction($id, Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('AdminBundle:Product')->find($id);
 
-
-       /* $formProduct = $this->createForm(ProductType::class);
-        $formProduct->handleRequest($request);
-
-        if ($formProduct->isSubmitted() && $formProduct->isValid()) {
-
-
-            // sauvegarde du produit
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($product);
-            $em->flush();
-
-            $this->addFlash('success', 'Votre produit a bien été ajouté');
-
-            return $this->redirectToRoute('product_create');
+        // Vérification si le produit est bien en BDD
+        if (!$product) {
+            throw $this->createNotFoundException("Le produit n'existe pas");
         }
 
-        return $this->render('Product/edit.html.twig', ['formProduct' => $formProduct->createView()]);*/
 
+        // Création du formulaire ProductType permettant de créer un produit
+        // Je lie le formulaire à mon objet $product
+        $formProduct = $this->createForm(ProductType::class, $product);
 
+        // Je lie la requête ($_POST) à mon formulaire donc à mon objet $product
+        $formProduct->handleRequest($request);
+
+        // Je valide mon formulaire
+        if ($formProduct->isSubmitted() && $formProduct->isValid()) {
+
+            // La ligne ci-dessous n'est pas obligatoire car doctrine est au courant de l'existance de $product
+            // $em->persist($product);
+            $em->flush();
+
+            $this->addFlash('success', 'Votre produit a été mis à jour');
+
+            return $this->redirectToRoute('product_show', ['id' => $id]);
+        }
+
+        return $this->render('Product/edit.html.twig', ['formProduct' => $formProduct->createView()]);
     }
+
     /**
-     * @Route("/delete", name="delete")
+     * @Route("/supprimer/{id}", name="product_remove")
      */
-    public function deleteAction()
+    public function removeAction(Request $request, $id)
     {
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('AdminBundle:Product')->find($id);
+
+        // Vérification si le produit est bien en BDD
+        if (!$product) {
+            throw $this->createNotFoundException("Le produit n'existe pas");
+        }
+
+        $em->remove($product);
+        $em->flush();
+
+        $messageSuccess = 'Votre produit a été supprimé';
 
 
+        if ($request->isXmlHttpRequest()) {
+            // use Symfony\Component\HttpFoundation\JsonResponse;
+            return new JsonResponse(['message' => $messageSuccess]);
+        }
+
+        $this->addFlash('success', 'Votre produit a été supprimé');
+
+        // Redirection sur la page qui liste tous les produits
+        return $this->redirectToRoute('product_list');
     }
 
 

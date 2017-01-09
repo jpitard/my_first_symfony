@@ -6,11 +6,11 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
 {% endblock %}
 
-{% block titleContent %}Liste des produits <small> </small>{% endblock %}
+{% block titleContent %}Categories <small> </small>{% endblock %}
 
 {% block breadcrumb %}
 {{ parent() }}
-<li class="active"> <a href="{{ url('liste_produits') }}"> Produits </a> </li>
+<li class="active"> <a href="{{ url('categories_list') }}"> Categories </a> </li>
 
 {% endblock %}
 
@@ -28,15 +28,9 @@
                         <dd>{{ categorie.title }}</dd>
                         <dt>Description</dt>
                         <dd>{{ categorie.description }}</dd>
-                        <dt>Date</dt>
-                        <dd>{{ categorie.date_created | date('d/m/y') }}</dd>
-                        <dd>
-                            {% if  categorie.active  %}
-                                ce produit est activé
-                            {% else %}
-                                ce produit n'est pas activé
-                            {% endif %}
-                        </dd>
+                        <dt>Position</dt>
+                        <dd>{{ categorie.position }}</dd>
+
                     </dl>
                 </div>
             </div>

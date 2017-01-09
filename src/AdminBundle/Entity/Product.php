@@ -3,6 +3,8 @@
 namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Product
@@ -25,6 +27,15 @@ class Product
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=100)
+     *
+     * @Assert\NotBlank(message="le titre ne doit pas etre vide")
+     *
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 100,
+     *      minMessage = "le titre doit avoir {{ limit }} caractère minimum",
+     *      maxMessage = "le titre doit avoir {{ limit }} caractère maximum"
+     * )
      */
     private $title;
 
@@ -32,13 +43,29 @@ class Product
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     *
+     * @Assert\NotBlank(message="la description ne doit pas etre vide")
+     *
+     * @Assert\Length(
+     *      max = 300,
+     *      maxMessage = "le titre doit avoir {{ limit }} caractère maximum"
+     * )
      */
     private $description;
 
     /**
      * @var float
      *
+     *
+     *
      * @ORM\Column(name="price", type="float")
+     *
+     * @Assert\NotBlank(message="Le prix doit étre supérieur a 0")
+     *
+     * @Assert\Range(
+     *      min = 1,
+     *      minMessage = "le prix ne peut pas être inférieur à {{ limit }}"
+     * )
      */
     private $price;
 
@@ -46,6 +73,9 @@ class Product
      * @var int
      *
      * @ORM\Column(name="quantity", type="integer")
+     *
+     *  @Assert\NotBlank(message="la quantité doit être supérieur 0")
+     *
      */
     private $quantity;
 

@@ -11,15 +11,10 @@
 {% block breadcrumb %}
     {{ parent() }}
     <li class=""> <a href="{{ url('product_list') }}"> Produits </a> </li>
-    <li class="active">  Modification </li>
+    <li class="active"> Créer </li>
 
 {% endblock %}
 {% block content %}
-
-
-    {# form(formProduct) #}
-
-
     {# Affichage du message de success	#}
     {% for flash_message in app.session.flashBag.get('success') %}
         <div class="alert alert-success">
@@ -27,7 +22,8 @@
         </div>
     {% endfor %}
     {# form(formContact) #}
-    {{ form_start(formProduct) }}
+
+    {{ form_start(formProduct, {attr: {novalidate: "novalidate"}}) }}
     <div class="row">
 
         <div class="col-xs-12">
@@ -107,8 +103,10 @@
             <button type="submit" class="btn btn-primary btn-block">Ajouter</button>
 
         </div>
+        {{ dump(app.request.attributes) }}
 
     </div>
 
     {{ form_end(formProduct) }}
+
 {% endblock %}
