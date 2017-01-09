@@ -13,6 +13,7 @@
     <li class=""> <a href="{{ url('product_list') }}"> Produits </a> </li>
     <li class="active"> Créer </li>
 
+
 {% endblock %}
 {% block content %}
     {# Affichage du message de success	#}
@@ -23,7 +24,9 @@
     {% endfor %}
     {# form(formContact) #}
 
+
     {{ form_start(formProduct, {attr: {novalidate: "novalidate"}}) }}
+
     <div class="row">
 
         <div class="col-xs-12">
