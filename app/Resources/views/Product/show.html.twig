@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-
+    {{ dump(produit) }}
      <div class="row">
         <div class="col-xs-12">
             <h1> {{ produit.title }}</h1>
@@ -28,6 +28,8 @@
                         <dd>{{ produit.description }}</dd>
                         <dt>Prix</dt>
                         <dd>{{ produit.price }}</dd>
+                        <dt>Marque</dt>
+                        <dd>{{ produit.marque.title }}</dd>
                         {# <dt>Date</dt> #}
                         {# <dd>{{ produit.date_created | date('d/m/y') }}</dd>  #}
                     </dl>

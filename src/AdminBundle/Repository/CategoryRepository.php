@@ -10,4 +10,39 @@ namespace AdminBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function myFindCategoryCount() {
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT count(cat)
+                          FROM AdminBundle:Category cat
+                    ');
+        die(dump($query->getResult()));
+
+    }
+
+    public function myFindCategoryCountActive() {
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT count(cat)
+                          FROM AdminBundle:Category cat
+                          WHERE cat.active = 1
+                    ');
+        die(dump($query->getResult()));
+
+    }
+
+    public function myFindCategoryCountActiveAndInactive() {
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT count(cat)
+                          FROM AdminBundle:Category cat
+                          GROUP BY cat.active
+                    ');
+        die(dump($query->getResult()));
+
+    }
 }

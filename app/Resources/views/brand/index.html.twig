@@ -2,7 +2,8 @@
 
 {% block body %}
     <h1>Brands list</h1>
-
+    <a href="{{ path("brand_index", {sort: "ASC"}) }}"> trier par odre alphabetique [A-Z]</a>
+    {{ dump(brands) }}
     <table>
         <thead>
             <tr>
@@ -11,6 +12,7 @@
                 <th>Actions</th>
             </tr>
         </thead>
+
         <tbody>
         {% for brand in brands %}
             <tr>

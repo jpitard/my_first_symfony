@@ -35,13 +35,14 @@
                                 <th>Id</th>
                                 <th>Title</th>
                                 <th>Description</th>
+                                <th>Marque</th>
                                 <th>Prix</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {# Debut calcul de la moyenne des prix #}
-                            
+
                             {% set moyenne_prix = "" %}
                             {% set somme_prix = "" %}
                             {% for produit in produits %}
@@ -49,10 +50,10 @@
                             {% endfor %}
                             {% set moyenne_prix =  somme_prix / produits|length %}
                             {# Fin calcul de la moyenne des prix #}
-                            
+
                             {% set moins_cher = 0 %}
                             {% set array_prix = [] %}
-                            
+
                             {% for key,produit in produits %}
                                 <tr>
                                     {# debut traitement prix moins cher #}
@@ -73,6 +74,7 @@
                                         
                                     </td>
                                     <td>{{ produit.description }}</td>
+                                    <td>{{ produit.marque.title }}</td>
                                     <td>{{ produit.price }}</td>
                                     <td>
                                         <a class="btn btn-success" href="{{ path('product_show', { id: produit.id }) }}">Voir</a>
@@ -88,6 +90,7 @@
                                <th>Id</th>
                                 <th>Title</th>
                                 <th>Description</th>
+                                <th>Marque</th>
                                 <th>Prix</th>
                                 <th>Action</th>
                             </tr>
