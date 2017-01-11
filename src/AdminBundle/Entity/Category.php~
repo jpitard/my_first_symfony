@@ -63,6 +63,12 @@ class Category
      */
     private $active;
 
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="Product", mappedBy="categories")
+     */
+    private $products;
+
 
     /**
      * Get id
@@ -160,5 +166,28 @@ class Category
                 ->addViolation();
         }
     }
-}
 
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return Category
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+}

@@ -36,6 +36,7 @@
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Marque</th>
+                                <th>Categorie</th>
                                 <th>Prix</th>
                                 <th>Action</th>
                             </tr>
@@ -64,17 +65,28 @@
                                     <td>{{ produit.id }}</td>
 
                                     <td>
-                                        {% if   min(moins_cher) <= produit.price %}
-                                            {{ produit.title }}
-                                            <span class="label label-default"> moins cher </span>
-                                        {% else%}
-                                            {{ produit.title }}
-                                        {% endif%}
+                                        {# if   min(produit.price)  #}
+                                            {# produit.title #}
+
+                                        {# <span class="label label-default"> moins cher </span> #}
+                                        {# else #}
+
+                                        {# endif #}
+                                        {{ produit.title }}
 
                                         
                                     </td>
                                     <td>{{ produit.description }}</td>
                                     <td>{{ produit.marque.title }}</td>
+                                    <td>
+                                        <ul>
+                                            {% for category in produit.categories %}
+                                               <li> {{ category.title }} </li>
+                                            {% endfor %}
+
+                                        </ul>
+                                    </td>
+
                                     <td>{{ produit.price }}</td>
                                     <td>
                                         <a class="btn btn-success" href="{{ path('product_show', { id: produit.id }) }}">Voir</a>
@@ -91,6 +103,7 @@
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Marque</th>
+                                <th>Categorie</th>
                                 <th>Prix</th>
                                 <th>Action</th>
                             </tr>

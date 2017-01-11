@@ -114,7 +114,87 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
+    //createQueryBuilder equivalent du findAll
+    // plusieurs requetes (sur lentité lui meme et les autres entités qui lui est rattachée)
+    public function findProduct() {
 
+        //
+        $results = $this
+            ->createQueryBuilder('product')
+            ->getQuery()
+            ->getResult()
+            ;
+
+        dump($results);exit;
+
+        //die(dump($query->getResult()));
+
+    }
+
+    //utilisation de SELECT Casse le comportement de requete et sous requetes
+    public function findProductWhere() {
+        //
+        $results = $this
+            ->createQueryBuilder('product')
+            ->select('product.description, product.price')
+           //->setMaxResults(2)
+           //->setFirstResult(1)
+            ->where('product.description = :desc')
+            ->setParameters([
+                'desc'=>'description test load1'
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+
+        dump($results);exit;
+
+        //die(dump($query->getResult()));
+
+    }
+
+    public function findProductJointure() {
+        //
+        $results = $this
+            ->createQueryBuilder('product')
+            ->select('product.description, product.price, marque.title')
+            ->join('product.marque', 'marque')
+            //->setMaxResults(2)
+            //->setFirstResult(1)
+            ->where('product.price > :price')
+            ->andWhere('product.description = :desc')
+            ->andWhere('marque.title LIKE :marque')
+            ->setParameters([
+               'desc' => 'description test load1',
+                'price' => 10,
+                'marque' => '%brand%',
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+
+        dump($results);exit;
+
+        //die(dump($query->getResult()));
+
+    }
+
+    public function findProductCount() {
+        //
+        $results = $this
+            ->createQueryBuilder('product')
+            ->select('COUNT(product.id) result')
+
+            ->getQuery()
+            ->getSingleScalarResult()
+           // ->getResult()
+        ;
+
+        dump($results);exit;
+
+        //die(dump($query->getResult()));
+
+    }
 
 
 

@@ -25,91 +25,129 @@
     {# form(formContact) #}
 
 
-    {{ form_start(formProduct, {attr: {novalidate: "novalidate"}}) }}
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Informations générales</h3>
+        </div>
 
-    <div class="row">
-
-        <div class="col-xs-12">
+        {{ form_start(formProduct, {attr: {novalidate: "novalidate", class:"form-horizontal"}}) }}
+        <div class="box-body ">
             <div class="form-group">
                 {{ form_errors(formProduct.title) }}
-                {{ form_label(formProduct.title,"Entrez le titre du produit")  }}
-                {{ form_widget(formProduct.title, {
-                    attr:{
-
-                        class: "form-control"
-                    },
-                    id: "form_title"
+                {{ form_label(formProduct.title,"Entrez le titre du produit",
+                {
+                    label_attr:{ class:"col-sm-2 control-label" }
                 })
                 }}
+                <div class="col-sm-10">
+                    {{ form_widget(formProduct.title,
+                    {
+                        attr:{ class: " form-control" },
+                        id: "adminbundle_product_title"
+                    })
+                    }}
+                </div>
             </div>
-        </div>
-    </div>
-
-    <div class="row">
-
-        <div class="col-xs-6">
             <div class="form-group">
                 {{ form_errors(formProduct.price) }}
-                {{ form_label(formProduct.price,"Entrez le prix du produit")  }}
-                {{ form_widget(formProduct.price,
+                {{ form_label(formProduct.price,"Entrez le prix du produit",
                 {
-                    attr:{
-
-                    class: "form-control"
-                },
-                    id: "form_price"
+                    label_attr:{ class:"col-sm-2 control-label" }
                 })
                 }}
+
+                <div class="col-sm-10">
+                    {{ form_widget(formProduct.price,
+                    {
+                        attr:{ class: " form-control"},
+                        id: "adminbundle_product_price"
+                    })
+                    }}
+                </div>
+
             </div>
-        </div>
-        <div class="col-xs-6">
             <div class="form-group">
                 {{ form_errors(formProduct.quantity) }}
-                {{ form_label(formProduct.quantity,"Entrez la quantité du produit")  }}
-                {{ form_widget(formProduct.quantity,
+                {{ form_label(formProduct.quantity,"Entrez la quantité du produit",
                 {
-                    attr:{
-
-                    class: "form-control"
-                },
-                    id: "form_quantity"
+                    label_attr:{ class:"col-sm-2 control-label" }
                 })
-
-
                 }}
-            </div>
-        </div>
 
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
+                <div class="col-sm-10">
+                    {{ form_widget(formProduct.quantity,
+                    {
+                        attr:{class: "form-control"},
+                        id: "adminbundle_product_quantity"
+                    })
+                    }}
+                </div>
+
+            </div>
             <div class="form-group">
-                {{ form_errors(formProduct.description) }}
-                {{ form_label(formProduct.description, "Entrez la description du produit") }}
-                {{ form_widget(formProduct.description,
-                {
-                    attr:{
+                {{ form_errors(formProduct.marque) }}
+                {{ form_label(formProduct.marque,"selectionnez la marque",
+                    {
+                        label_attr:{ class:"col-sm-2 control-label" }
+                    })
+                }}
+                <div class="col-sm-10">
+                    {{ form_widget(formProduct.marque,
+                    {
+                        attr:{class: "form-control", palceholder: ""},
+                        id: "adminbundle_product_quantity"
+                    })
+                    }}
+                </div>
 
-                    placeholder: "Ecrivez votre texte ici",
-                    class: "form-control"
-                },
-                    id: "form_content"
+            </div>
+            {% spaceless %}
+            {%  for category in formProduct.categories %}
+            <div class="form-group" >
+                <div>
+                    <div class="col-sm-offset-2 col-sm-10" >
+                        <div class="checkbox-inline">
+                            {{ form_widget(category) }}
+                            {{ form_label(category) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {%  endfor %}
+            {% endspaceless %}
+
+            <div class="form-group ">
+                {{ form_errors(formProduct.description) }}
+                {{ form_label(formProduct.description, "Entrez la description du produit",
+                {
+                    label_attr:{ class:"col-sm-2 control-label" }
                 })
                 }}
 
+                <div class="col-sm-10">
+                    {{ form_widget(formProduct.description,
+                    {
+                        attr:{
+                        placeholder: "Entrez...",
+                        class: "form-control",
+                        rows: "3"
+                    },
+                        id: "adminbundle_product_description"
+                    })
+                    }}
+                </div>
             </div>
         </div>
+        <div class="box-footer">
 
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <button type="submit" class="btn btn-primary btn-block">Ajouter</button>
+            <button type="submit" class="btn btn-info">{{ ' Enregistrer ' }}</button>
+            {{ form_end(formProduct) }}
+
+            <a class="btn btn-default" href="{{ path('product_list')}}"><i class="fa fa-list"></i>{{ ' Retour à la liste ' }}</a>
 
         </div>
-        {{ dump(app.request.attributes) }}
-
     </div>
 
-    {{ form_end(formProduct) }}
 
 {% endblock %}

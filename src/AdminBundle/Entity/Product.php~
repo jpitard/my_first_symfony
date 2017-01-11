@@ -87,6 +87,13 @@ class Product
     private $marque;
 
     /**
+    *
+    * @ORM\ManyToMany(targetEntity="Category", inversedBy="products")
+    * @ORM\JoinTable(name="products_categories")
+    */
+    private $categories;
+
+    /**
      * Get id
      *
      * @return int
@@ -214,5 +221,46 @@ class Product
     public function getMarque()
     {
         return $this->marque;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add category
+     *
+     * @param \AdminBundle\Entity\Category $category
+     *
+     * @return Product
+     */
+    public function addCategory(\AdminBundle\Entity\Category $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \AdminBundle\Entity\Category $category
+     */
+    public function removeCategory(\AdminBundle\Entity\Category $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

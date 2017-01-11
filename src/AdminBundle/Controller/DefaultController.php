@@ -21,10 +21,15 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $tousLesProduits = $em->getRepository('AdminBundle:Product')->myFindPrixMaxAndMin();
+        //$em = $this->getDoctrine()->getManager();
+        //$tousLesProduits = $em->getRepository('AdminBundle:Product')->findP;
        //$tousLesProduits = $em->getRepository('AdminBundle:Category')->myFindCategoryCountActiveAndInactive();
-        die($tousLesProduits);
+        //die($tousLesProduits);
+
+        $doctrine = $this->getDoctrine();
+        $rc = $doctrine->getRepository('AdminBundle:Product');
+        $results = $rc->findProductCount();
+
         return $this->render('Default/index.html.twig');
     }
 
