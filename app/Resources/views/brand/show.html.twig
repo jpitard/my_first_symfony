@@ -1,32 +1,57 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block body %}
-    <h1>Brand</h1>
+{% block stylesheets %}
+    {{ parent() }}
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ brand.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ brand.title }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
+{% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('brand_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('brand_edit', { 'id': brand.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+{% block titleContent %}Liste des marques <small> </small>{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class=""> <a href="{{ url('product_list') }}"> Produits </a> </li>
+    <li class="active">  {{ brand.title }}  </li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Information sur le {{ brand.title }}</h3>
+        </div>
+
+        <div class="box-body ">
+            <dl class="dl-horizontal center ">
+                <dt>Titre</dt>
+                <dd>{{ brand.title }}</dd>
+            </dl>
+        </div>
+
+        <div class="box-footer">
+
+            <a class="btn btn-default" href="{{ path('brand_index')}}"><i class="fa fa-list"></i>{{ ' Retour à la liste ' }}</a>
+
+            <span style="display: inline-block">
+                {{ form_start(delete_form) }}
+                <button type="submit" class="btn btn-danger"> <i class="fa fa-trash-o"></i> Supprimer </button>
+
+                {{ form_end(delete_form) }}
+             </span>
+
+
+        </div>
+
+    </div>
+
+
+{% endblock%}
+
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+
 {% endblock %}

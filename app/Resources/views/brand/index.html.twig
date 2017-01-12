@@ -1,41 +1,85 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block body %}
-    <h1>Brands list</h1>
-    <a href="{{ path("brand_index", {sort: "ASC"}) }}"> trier par odre alphabetique [A-Z]</a>
-    {{ dump(brands) }}
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
+{% endblock %}
 
-        <tbody>
-        {% for brand in brands %}
-            <tr>
-                <td><a href="{{ path('brand_show', { 'id': brand.id }) }}">{{ brand.id }}</a></td>
-                <td>{{ brand.title }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('brand_show', { 'id': brand.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('brand_edit', { 'id': brand.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% block titleContent %}Liste des marques <small> </small>{% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('brand_new') }}">Create a new brand</a>
-        </li>
-    </ul>
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active"> <a href="{{ url('brand_index') }}"> Marques </a> </li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <p class="text-right"><a class="btn btn-success" href=" {{ path('brand_new') }}">Créer une nouvelle marque</a></p>
+            <div class="box box-info">
+
+                <div class="box-header with-border">
+                    <h3 class="box-title">Tous des Marques
+                        <span class="badge">{{  brands|length  }}</span>
+                    </h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for brand in brands %}
+                            <tr>
+                                <td><a href="{{ path('brand_show', { 'id': brand.id }) }}">{{ brand.id }}</a></td>
+                                <td>{{ brand.title }}</td>
+                                <td>
+                                    <a class="btn btn-success" href="{{ path('brand_show', { 'id': brand.id }) }}">Voir</a>
+                                    <a class="btn btn-info" href=" {{ path('brand_edit', { 'id': brand.id }) }} ">Editer</a>
+                                    <a class="btn btn-danger" href="{{ path('brand_delete', { 'id': brand.id }) }}">Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Action</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer"></div>
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+{% endblock%}
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+        });
+    </script>
+
+
+
 {% endblock %}

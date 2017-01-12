@@ -117,7 +117,7 @@ class CategoryController extends Controller
             return $this->redirectToRoute('category_show', ['id' => $id]);
         }
 
-        return $this->render('Category/edit.html.twig', ['formCategory' => $formCategory->createView()]);
+        return $this->render('Category/edit.html.twig', ['formCategory' => $formCategory->createView(), 'category' => $category]);
     }
 
     /**

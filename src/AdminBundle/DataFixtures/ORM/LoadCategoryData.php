@@ -20,8 +20,6 @@ class LoadCategoryData extends  AbstractFixture implements OrderedFixtureInterfa
             $category->setPosition(rand(1,10));
             $category->setActive(rand(0,1));
 
-
-
             $manager->persist($category);
             $manager->flush();
 

@@ -1,16 +1,63 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block body %}
-    <h1>Brand creation</h1>
+{% block stylesheets %}
+    {{ parent() }}
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
+{% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('brand_index') }}">Back to the list</a>
-        </li>
-    </ul>
+{% block titleContent %}MARQUE <small> </small>{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class=""> <a href="{{ url('categories_list') }}"> Marque</a> </li>
+    <li class="active">  Créer </li>
+
+{% endblock %}
+{% block content %}
+
+    {# Affichage du message de success	#}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    {# form(formContact) #}
+
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Informations générales</h3>
+        </div>
+
+        {{ form_start(form, {attr: {novalidate: "novalidate", class:"form-horizontal"}}) }}
+        <div class="box-body ">
+            <div class="form-group">
+                {{ form_errors(form.title) }}
+                {{ form_label(form.title,"Entrez la marque",
+                {
+                    label_attr:{ class:"col-sm-2 control-label" }
+                })
+                }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.title,
+                    {
+                        attr:{ class: " form-control" },
+                        id: "form_title"
+                    })
+                    }}
+                </div>
+            </div>
+
+
+        </div>
+        <div class="box-footer">
+
+            <button type="submit" class="btn btn-info">{{ ' Ajouter ' }}</button>
+            {{ form_end(form) }}
+
+            <a class="btn btn-default" href="{{ path('brand_index')}}"><i class="fa fa-list"></i>{{ ' Retour à la liste ' }}</a>
+
+        </div>
+    </div>
+
 {% endblock %}

@@ -1,21 +1,92 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block body %}
-    <h1>Brand edit</h1>
+{% block stylesheets %}
+    {{ parent() }}
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('brand_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
 {% endblock %}
+
+{% block titleContent %}Marque <small> </small>{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class=""> <a href="{{ url('brand_index') }}"> Marques </a> </li>
+    <li class="active">  Modification </li>
+
+{% endblock %}
+{% block content %}
+
+
+    {# form(formProduct) #}
+
+    {# Affichage du message de success	#}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title"> Modification du marque  </h3>
+        </div>
+        {{ form_start(edit_form, {attr: {novalidate: "novalidate", class:"form-horizontal"}}) }}
+        <div class="box-body ">
+            <div class="form-group">
+                {{ form_errors(edit_form.title) }}
+                {{ form_label(edit_form.title,"Entrez la marque",
+                {
+                    label_attr:{ class:"col-sm-2 control-label" }
+                })
+                }}
+                <div class="col-sm-10">
+                    {{ form_widget(edit_form.title,
+                    {
+                        attr:{ class: " form-control" },
+                        id: "form_title"
+                    })
+                    }}
+                </div>
+            </div>
+
+        </div>
+        <div class="box-footer">
+            <button type="submit" class="btn btn-info">{{ ' Enregistrer ' }}</button>
+            {{ form_end(edit_form) }}
+
+
+            <span style="display: inline-block">
+                <a class="btn btn-default" href="{{ path('brand_index')}}"><i class="fa fa-list"></i>{{ ' Retour à la liste ' }}</a>
+                 <a class="btn btn-danger" href=""><i class="fa fa-trash-o"></i> Supprimer</a>
+             </span>
+
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+
+
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block body %}#}
+    {#<h1>Brand edit</h1>#}
+
+    {#{{ form_start(edit_form) }}#}
+        {#{{ form_widget(edit_form) }}#}
+        {#<input type="submit" value="Edit" />#}
+    {#{{ form_end(edit_form) }}#}
+
+    {#<ul>#}
+        {#<li>#}
+            {#<a href="{{ path('brand_index') }}">Back to the list</a>#}
+        {#</li>#}
+        {#<li>#}
+            {#{{ form_start(delete_form) }}#}
+                {#<input type="submit" value="Delete">#}
+            {#{{ form_end(delete_form) }}#}
+        {#</li>#}
+    {#</ul>#}
+{#{% endblock %}#}

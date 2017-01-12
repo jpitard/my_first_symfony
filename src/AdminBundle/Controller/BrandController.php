@@ -55,6 +55,7 @@ class BrandController extends Controller
             $em->persist($brand);
             $em->flush($brand);
 
+            $this->addFlash('success', 'Votre marque a bien été ajoutée');
             return $this->redirectToRoute('brand_show', array('id' => $brand->getId()));
         }
 
@@ -120,6 +121,14 @@ class BrandController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($brand);
             $em->flush($brand);
+
+            $messageSuccess = 'Votre produit a été supprimé';
+            if ($request->isXmlHttpRequest()) {
+                // use Symfony\Component\HttpFoundation\JsonResponse;
+                return new JsonResponse(['message' => $messageSuccess]);
+            }
+
+            $this->addFlash('success', 'Votre produit a été supprimé');
         }
 
         return $this->redirectToRoute('brand_index');

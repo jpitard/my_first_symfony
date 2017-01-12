@@ -16,27 +16,37 @@
 
 {% block content %}
 
-     <div class="row">
-        <div class="col-xs-12">
-            <h1> {{ categorie.title }}</h1>
-            <div class="box text-center">
-                <div class=" text-center">
-                    <dl class="dl-horizontal ">
-                        <dt>ID</dt>
-                        <dd>{{ categorie.id }}</dd>
-                        <dt>Titre</dt>
-                        <dd>{{ categorie.title }}</dd>
-                        <dt>Description</dt>
-                        <dd>{{ categorie.description }}</dd>
-                        <dt>Position</dt>
-                        <dd>{{ categorie.position }}</dd>
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Information sur le {{ categorie.title }}</h3>
+        </div>
 
-                    </dl>
-                </div>
-            </div>
-         </div>
-     </div>
+        <div class="box-body ">
+            <dl class="dl-horizontal center ">
+                <dt>ID</dt>
+                <dd>{{ categorie.id }}</dd>
+                <dt>Titre</dt>
+                <dd>{{ categorie.title }}</dd>
+                <dt>Description</dt>
+                <dd>{{ categorie.description }}</dd>
+                <dt>Position</dt>
+                <dd>{{ categorie.position }}</dd>
+            </dl>
+        </div>
 
+        <div class="box-footer">
+
+            <a class="btn btn-default" href="{{ path('categories_list')}}"><i class="fa fa-list"></i>{{ ' Retour à la liste ' }}</a>
+
+            <span style="display: inline-block">
+                 <a class="btn btn-primary" href="{{ url('category_edit', { id: categorie.id } ) }}"><i class="fa fa-trash-o"></i> Editer</a>
+                 <a class="btn btn-danger" href="{{ url('category_remove', { id: categorie.id } ) }}"><i class="fa fa-trash-o"></i> Supprimer</a>
+             </span>
+
+
+        </div>
+
+    </div>
 
 {% endblock%}
 

@@ -121,7 +121,7 @@ class ProductController extends Controller
             return $this->redirectToRoute('product_show', ['id' => $id]);
         }
 
-        return $this->render('Product/edit.html.twig', ['formProduct' => $formProduct->createView()]);
+        return $this->render('Product/edit.html.twig', ['formProduct' => $formProduct->createView(), 'product' => $product]);
     }
 
     /**
