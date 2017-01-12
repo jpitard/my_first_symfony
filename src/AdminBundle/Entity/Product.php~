@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="product")
  * @ORM\Entity(repositoryClass="AdminBundle\Repository\ProductRepository")
+ * @ORM\EntityListeners("AdminBundle\Listener\ProductListener")
  */
 class Product
 {
@@ -92,6 +93,24 @@ class Product
     * @ORM\JoinTable(name="products_categories")
     */
     private $categories;
+
+    /**
+     * @var datetime
+     *
+     *
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAT;
+
+    /**
+     * @var datetime
+     *
+     *
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;
 
     /**
      * Get id
@@ -263,4 +282,7 @@ class Product
     {
         return $this->categories;
     }
+
+
+
 }
