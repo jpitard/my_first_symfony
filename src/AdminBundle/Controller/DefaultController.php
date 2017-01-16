@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="admin")
+     * @Route("/admin", name="admin")
      */
     public function indexAction()
     {

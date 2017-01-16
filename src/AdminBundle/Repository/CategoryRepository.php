@@ -45,4 +45,7 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
         die(dump($query->getResult()));
 
     }
+
+
+
 }

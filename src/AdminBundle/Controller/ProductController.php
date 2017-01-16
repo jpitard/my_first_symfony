@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 
 /**
- * @Route("/produits")
+ * @Route("admin/produits")
  */
 class ProductController extends Controller
 {
@@ -51,11 +51,30 @@ class ProductController extends Controller
             // sauvegarde du produit
             $em = $this->getDoctrine()->getManager();
 
+            //Recuperer l'image
+            //$image= $product->getImage();
+
+            //die(dump($image));
+
+            //service utils
+            //$serviceUtils = $this->get('admin.service.utils.string');
+            //$fileName = $serviceUtils->generateUniqId() . '.' . $image->guessExtension( );
+            //die(dump($fileName));
+            //transfert
+            //die(dump($product));
+            //$renameImage = $fileName.'.'.$image->guessExtension();
+
+           /*$uploadService = $this->get('admin.service.upload');
+             $uploadService->upload($image);
+            $nameImage = $uploadService->getNameImage();*/
+            // $image->move('upload/',$fileName );
+
+            //$product->setImage($nameImage);
+           // die(dump($product , $nameImage));
+
             $em->persist($product);
             $em->flush();
-
             $this->addFlash('success', 'Votre produit a bien été ajouté');
-
             return $this->redirectToRoute('product_create');
         }
 

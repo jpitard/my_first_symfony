@@ -112,6 +112,16 @@ class Product
      */
     private $updatedAt;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string")
+     *
+     */
+    private $image;
+
+
     /**
      * Get id
      *
@@ -332,5 +342,29 @@ class Product
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Product
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

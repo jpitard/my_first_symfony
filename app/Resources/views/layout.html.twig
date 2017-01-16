@@ -374,11 +374,11 @@
     </header>
 
     <!-- Left side column. contains the logo and sidebar -->
-    {{ render(controller('AdminBundle:Menu:index',  {'route': app.request.attributes.get('_route') })) }}
+    {{ render(controller('AdminBundle:Menu:index')) }}
 
     <!-- Content Wrapper. Contains page content -->
      <div class="content-wrapper">
-
+            {{ ma_fonction() }}
           <h1>
           {% block titleContent %}
             Dashboard

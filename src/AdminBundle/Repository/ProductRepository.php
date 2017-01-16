@@ -197,5 +197,60 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
+    public function findProductLimitPrice() {
+
+        //
+        $results = $this
+            ->createQueryBuilder('product')
+            ->orderBy('product.price', 'DESC')
+            ->setMaxResults(6)
+            ->getQuery()
+            ->getResult()
+        ;
+        //dump($results);exit;
+
+        return $results;
+    }
+
+    public function findProductLimitCarousel() {
+
+        //
+        $results = $this
+            ->createQueryBuilder('product')
+            ->orderBy('product.quantity', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return $results;
+    }
+
+    public function myFindProductionSelonCategorie($categorie_id) {
+        $results = $this
+            ->createQueryBuilder('p')
+            ->join('p.categories', 'c')
+            ->where('c.id = :idCat')
+            ->setParameters(['idCat' => $categorie_id])
+            ->setFirstResult(0)
+            ->setMaxResults(4)
+            ->getQuery()
+            ->getResult();
+        return $results;
+    }
+
+    public function FindProductsByCategoryCount($categorie_id) {
+        $results = $this
+            ->createQueryBuilder('p')
+            ->join('p.categories', 'c')
+            ->where('c.id = :idCat')
+            ->setParameters(['idCat' => $categorie_id])
+            ->getQuery()
+            ->getResult();
+        return $results;
+    }
+
+
+
 
 }
