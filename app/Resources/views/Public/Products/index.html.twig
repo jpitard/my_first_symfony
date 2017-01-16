@@ -2,12 +2,19 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset("asset_front/css/shop-homepage.css") }}">
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
 
 {% endblock %}
 
 
-{% block content %}
+{% block body %}
 
-    {{ dum(produits) }}
+ {{ dump(produits) }}
 
 {% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'public.layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset("asset_front/css/shop-homepage.css") }}">
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}
+
+
+{% block body %}
+
+
+
+    <div class="container">
+    <div class="row">
+        {{ render(controller('AppBundle:RenderCategory:index')) }}
+
+        <div class="col-md-9">
+
+            <div class="row carousel-holder">
+
+                <div class="col-md-12">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            {% for key,produit in produitsCarou %}
+                                    {% if loop.first %}
+                                        <li data-target="#carousel-example-generic" data-slide-to="{{ key }}" class="active"></li>
+                                    {% else %}
+                                        <li data-target="#carousel-example-generic" data-slide-to="{{ key }}"></li>
+                                    {% endif %}
+                            {% endfor %}
+
+                        </ol>
+                        <div class="carousel-inner">
+                            {% for produitCarou in produitsCarou %}
+                                {% if loop.first %}
+                                    <div class="item active">
+                                        <img class="slide-image" src="{{ asset('upload/' ~ produitCarou.image) }}" alt="">
+                                    </div>
+                                {% else %}
+                                    <div class="item">
+                                        <img class="slide-image" src="{{ asset('upload/' ~ produitCarou.image) }}" alt="">
+                                    </div>
+                                {% endif %}
+
+                            {% endfor %}
+                        </div>
+                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                {% for produit in produits %}
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="{{ asset('upload/' ~ produit.image) }}" alt="">
+                            <div class="caption">
+                                <h4 class="pull-right">{{'€'~ produit.price|number_format }}</h4>
+                                <h4><a href="{{ path('app_products_show', { id: produit.id }) }}">{{ produit.title }}</a>
+                                </h4>
+                                <p>{{ produit.description }}</p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right">15 reviews</p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+        </div>
+
+</div></div>
+
+{% endblock %}

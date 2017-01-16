@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminBundle\Controller;
+namespace AppBundle\Controller;
 
 use AdminBundle\Entity\Product;
 use AdminBundle\Form\ProductType;
@@ -10,11 +10,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
-
+/**
+ * @Route("/produits")
+ */
 class ProductController extends Controller
 {
     /**
-     * @Route("/products", name="app_products")
+     * @Route("/", name="app_products")
      */
     public function indexAction()
     {
@@ -32,6 +34,30 @@ class ProductController extends Controller
         		'produits' => $produits
         	]);
     }
+
+    /**
+     * @Route("/{id}", name="app_products_show")
+     */
+    public function showAction(Product $product)
+    {
+
+
+        if (empty($product)) {
+
+            throw $this->createNotFoundException("Le produit n'existe pas");
+        }
+
+
+        return $this->render('Public/Products/show.html.twig',
+            [
+                'product' => $product
+            ]);
+    }
+
+
+
+
+
 
 
 }

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 /**
- * @Route("/categories")
+ * @Route("admin/categories")
  */
 class CategoryController extends Controller
 {
