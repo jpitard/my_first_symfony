@@ -5,12 +5,12 @@ namespace AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Brand
+ * Role
  *
- * @ORM\Table(name="brand")
- * @ORM\Entity(repositoryClass="AdminBundle\Repository\BrandRepository")
+ * @ORM\Table(name="role")
+ * @ORM\Entity(repositoryClass="AdminBundle\Repository\RoleRepository")
  */
-class Brand
+class Role
 {
     /**
      * @var int
@@ -24,9 +24,10 @@ class Brand
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=150)
+     * @ORM\Column(name="name", type="string", length=50, unique=true)
      */
-    private $title;
+    private $name;
+
 
 
     /**
@@ -40,26 +41,29 @@ class Brand
     }
 
     /**
-     * Set title
+     * Set name
      *
-     * @param string $title
+     * @param string $name
      *
-     * @return Brand
+     * @return Role
      */
-    public function setTitle($title)
+    public function setName($name)
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get title
+     * Get name
      *
      * @return string
      */
-    public function getTitle()
+    public function getName()
     {
-        return $this->title;
+        return $this->name;
     }
+
+
+
 }

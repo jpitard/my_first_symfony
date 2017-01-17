@@ -45,53 +45,115 @@
             <div class="well">
 
                 <div class="text-right">
-                    <a class="btn btn-success">Leave a Review</a>
+                    <a class="btn btn-success">Ajouter un commentaire</a>
                 </div>
-
                 <hr>
-
                 <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">10 days ago</span>
-                        <p>This product was great in terms of quality. I would definitely buy another!</p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% for flash_message in app.session.flashBag.get('success') %}
+                                <div class="alert alert-success">
+                                    {{ flash_message }}
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_start(formComment, {attr: {novalidate: "novalidate", class:"form-horizontal"}}) }}
+
+                            <div class="form-group">
+                                {{ form_errors(formComment.author) }}
+                                {{ form_label(formComment.author,"Votre nom",
+                                {
+                                    label_attr:{ class:"col-sm-2 control-label" }
+                                })
+                                }}
+                                <div class="col-sm-10">
+                                    {{ form_widget(formComment.author,
+                                    {
+                                        attr:{ class: " form-control" },
+                                        id: "adminbundle_comment"
+                                    })
+                                    }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_errors(formComment.score) }}
+                                {{ form_label(formComment.score,"Saisir une note",
+                                {
+                                    label_attr:{ class:"col-sm-2 control-label" }
+                                })
+                                }}
+                                <div class="col-sm-10">
+                                    {{ form_widget(formComment.score,
+                                    {
+                                        attr:{ class: " form-control" },
+                                        id: "adminbundle_comment"
+                                    })
+                                    }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_errors(formComment.content) }}
+                                {{ form_label(formComment.content,"Entrez le contenu",
+                                {
+                                    label_attr:{ class:"col-sm-2 control-label" }
+                                })
+                                }}
+                                <div class="col-sm-10">
+                                    {{ form_widget(formComment.content,
+                                    {
+                                        attr:{ class: " form-control" },
+                                        id: "adminbundle_comment"
+                                    })
+                                    }}
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-right">
+                                <button type="submit" class="btn btn-info right">{{ ' Ajouter ' }}</button>
+
+                            </div>
+
+
+                            {{ form_end(formComment) }}
+
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <hr>
+                {% for comment in repComments %}
+                    <hr>
+                    {# TODO DOIT ETRE AMELIORER #}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% for i in 1..5  %}
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">12 days ago</span>
-                        <p>I've alredy ordered another one!</p>
+                                {% if i <= comment.score %}
+                                    <span class="glyphicon glyphicon-star"></span>
+                                {% else %}
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                {% endif %}
+
+
+                            {% endfor %}
+
+                            {{ comment.author }}
+                            <span class="pull-right"></span>
+                            <p>{{ comment.content }}</p>
+                        </div>
                     </div>
-                </div>
 
-                <hr>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">15 days ago</span>
-                        <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
-                    </div>
-                </div>
+
+                {% endfor %}
+
+
+
+
 
             </div>
 

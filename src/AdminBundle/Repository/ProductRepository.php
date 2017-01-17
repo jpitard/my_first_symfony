@@ -226,13 +226,13 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return $results;
     }
 
-    public function myFindProductionSelonCategorie($categorie_id) {
+    public function myFindProductionSelonCategorie($categorie_id, $offset) {
         $results = $this
             ->createQueryBuilder('p')
             ->join('p.categories', 'c')
             ->where('c.id = :idCat')
             ->setParameters(['idCat' => $categorie_id])
-            ->setFirstResult(0)
+            ->setFirstResult($offset)
             ->setMaxResults(4)
             ->getQuery()
             ->getResult();
