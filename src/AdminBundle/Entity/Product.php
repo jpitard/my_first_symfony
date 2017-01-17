@@ -367,4 +367,10 @@ class Product
     {
         return $this->image;
     }
+
+    public function _toString()
+    {
+       return $this->name;
+
+    }
 }

@@ -10,4 +10,28 @@ namespace AdminBundle\Repository;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function FindCommentsByProduct($product_id) {
+        $results = $this
+            ->createQueryBuilder('c')
+            ->where('c.product = :idProduct')
+            ->setParameters(['idProduct' => $product_id])
+            ->getQuery()
+            ->getResult();
+        return $results;
+    }
+
+    public function FindAvgCommentProduct($product_id) {
+        $results = $this
+            ->createQueryBuilder('c')
+            ->select('AVG(c.score)')
+            ->where('c.product = :idProduct')
+            ->setParameters(['idProduct' => $product_id])
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $results;
+    }
+
+
+
+
 }

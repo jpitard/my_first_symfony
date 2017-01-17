@@ -42,19 +42,32 @@ class CategoryController extends Controller
         $products = $em->getRepository('AdminBundle:Product')->myFindProductionSelonCategorie($category->getId(), $offset);
 
         $nbProducts = count( $em->getRepository('AdminBundle:Product')->FindProductsByCategoryCount($category->getId()));
-        $nbPages = 0;
 
-         if ($nbProducts % 4 == 0){
-             //die(dump('pas de virgules'));
-            $nbPages = $nbProducts/4;
-         }else{
-             //die(dump('virgules'));
+        //$nbPages;
 
-            $nbPages = ($nbProducts + 1)/4;
-         }
+        if ($nbProducts){
+          /*  if ($nbProducts % 4 == 0){
+                // die(dump('pas de virgules',$nbProducts));
+                $nbPages = $nbProducts/4;
+
+            }elseif ($nbProducts % 2 == 0){
+                $nbPages = 1;
+            }else{
+                $nbPages = 1;
+            }*/
+
+           // die(dump( ' produits exist', $nbProducts));
+
+        }else{
+
+            $nbPages = 0;
+            //die(dump( $nbPages, 'pas de produits'));
+        }
 
 
-        //die(dump( $nbPages));
+
+
+      // die(dump( $nbPages, $nbProducts));
 
 
         return $this->render('Public/Products/list_by_category.html.twig',

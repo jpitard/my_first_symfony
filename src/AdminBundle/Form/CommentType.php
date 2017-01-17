@@ -2,6 +2,7 @@
 
 namespace AdminBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,9 +16,16 @@ class CommentType extends AbstractType
     {
         $builder->add('author')
                 ->add('content')
-                ->add('createAt')
+                //->add('createAt')
                 ->add('score')
-                ->add('product')
+                /*->add('product', EntityType::class, [
+                    'class' => 'AdminBundle\Entity\Product',
+                    'choice_label' => 'title',
+                    // pour avoir un champ vide au départ :
+                    //'placeholder'   => '',
+                    'expanded'      => true,
+                    'multiple' => true
+                ])*/
         ;
     }
     

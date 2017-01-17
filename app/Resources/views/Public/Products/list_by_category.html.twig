@@ -47,7 +47,7 @@
                                 <img src="http://placehold.it/800x500" alt="">
                                 <div class="caption">
                                     <h3>{{ product.title }}</h3>
-                                    <p>{{ product.description  }}</p>
+                                    <p>{{ product.description | truncate(50, true, '...')  }}</p>
                                     <p>
                                         <a href="#" class="btn btn-primary">Acheter</a> <a href="{{ path('app_products_show', { id: product.id }) }}" class="btn btn-default">Voir plus</a>
                                     </p>
@@ -63,11 +63,25 @@
                 <div class="row">
                     <div class="col-md-12">
                         <ul class="pagination">
-                            {% for page in 1..nbPages %}
 
+                            {% if nbPages==0 %}
                                 <li><a href="{{ path('app_products_by_category', {'id':category.id, 'page': page}) }}"> {{ page }}  </a></li>
+                                <p> il n'existe pas de produit</p>
+                            {% elseif nbPages == 1 %}
+                                {% for page in 1..nbPages %}
 
-                            {% endfor %}
+                                    <li><a href="{{ path('app_products_by_category', {'id':category.id, 'page': page}) }}"> {{ page }}  </a></li>
+
+                                {% endfor %}
+
+                            {% else  %}
+
+
+
+                            {% endif %}
+
+
+
 
                         </ul>
                     </div>
