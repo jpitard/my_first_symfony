@@ -21,6 +21,7 @@
             {{ render(controller('AppBundle:RenderCategory:index')) }}
 
             <div class="col-md-9">
+
                 <!-- Jumbotron Header -->
                 <header class="jumbotron hero-spacer">
                     <h1>A Warm Welcome!</h1>
@@ -33,7 +34,7 @@
 
                 <!-- Title -->
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-md-12">
                         <h3>Latest Features</h3>
                     </div>
                 </div>
@@ -41,13 +42,13 @@
 
                 <!-- Page Features -->
                 <div class="row text-center">
-                    {% for product in products %}
+                    {% for product in pagination %}
                         <div class="col-md-3 col-sm-6 hero-feature">
                             <div class="thumbnail">
                                 <img src="http://placehold.it/800x500" alt="">
                                 <div class="caption">
                                     <h3>{{ product.title }}</h3>
-                                    <p>{{ product.description | truncate(50, true, '...')  }}</p>
+                                    <p>{{ product.description | truncate(30, true, '...')  }}</p>
                                     <p>
                                         <a href="#" class="btn btn-primary">Acheter</a> <a href="{{ path('app_products_show', { id: product.id }) }}" class="btn btn-default">Voir plus</a>
                                     </p>
@@ -60,33 +61,15 @@
                 <!-- /.row -->
                 <hr>
 
+                <!-- Pagination -->
                 <div class="row">
-                    <div class="col-md-12">
-                        <ul class="pagination">
-
-                            {% if nbPages==0 %}
-                                <li><a href="{{ path('app_products_by_category', {'id':category.id, 'page': page}) }}"> {{ page }}  </a></li>
-                                <p> il n'existe pas de produit</p>
-                            {% elseif nbPages == 1 %}
-                                {% for page in 1..nbPages %}
-
-                                    <li><a href="{{ path('app_products_by_category', {'id':category.id, 'page': page}) }}"> {{ page }}  </a></li>
-
-                                {% endfor %}
-
-                            {% else  %}
-
-
-
-                            {% endif %}
-
-
-
-
-                        </ul>
+                    <div class="col-md-6 col-md-offset-3">
+                        {{ knp_pagination_render(pagination) }}
                     </div>
-
                 </div>
+                <!-- /.row -->
+
+
             </div>
 
         </div>

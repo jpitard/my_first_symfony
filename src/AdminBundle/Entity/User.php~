@@ -9,6 +9,7 @@
 namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -25,24 +26,39 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
+     * @Assert\NotBlank(message="le nom ne peut pas être vide")
+     *
      * @ORM\Column(type="string", length=25, unique=true)
      */
     private $username;
 
     /**
+     * @Assert\NotBlank(message="le mot de passe ne peut pas être vide")
+     *
      * @ORM\Column(type="string", length=64)
      */
     private $password;
 
     /**
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
      * @ORM\Column(type="string", length=60, unique=true)
      */
     private $email;
 
     /**
-     * @ORM\Column(name="is_active", type="boolean")
+     * @ORM\Column(name="is_active", type="boolean", options={"default": 0})
      */
     private $isActive;
+
+
+    /**
+     *
+     * @ORM\Column(type="string", length=32, unique=true)
+     */
+    private $token;
 
     /**
      *
@@ -83,7 +99,13 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        $list=[];
+        foreach ($this->roles as $key => $value){
+            $list[] = $value->getName();
+
+        }
+        //die(dump($list));
+        return $list;
     }
 
     public function eraseCredentials()
@@ -202,4 +224,28 @@ class User implements UserInterface, \Serializable
 
     
 
+
+    /**
+     * Add role
+     *
+     * @param \AdminBundle\Entity\Role $role
+     *
+     * @return User
+     */
+    public function addRole(\AdminBundle\Entity\Role $role)
+    {
+        $this->roles[] = $role;
+
+        return $this;
+    }
+
+    /**
+     * Remove role
+     *
+     * @param \AdminBundle\Entity\Role $role
+     */
+    public function removeRole(\AdminBundle\Entity\Role $role)
+    {
+        $this->roles->removeElement($role);
+    }
 }

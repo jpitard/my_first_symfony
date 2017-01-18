@@ -39,24 +39,37 @@ class CategoryController extends Controller
 
         $offset = ($page - 1) * 4;
 
-        $products = $em->getRepository('AdminBundle:Product')->myFindProductionSelonCategorie($category->getId(), $offset);
+        $products = $em->getRepository('AdminBundle:Product')->myFindProductionSelonCategorie($category->getId());
 
         $nbProducts = count( $em->getRepository('AdminBundle:Product')->FindProductsByCategoryCount($category->getId()));
 
+        //debut test knp
+        $paginator  = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate(
+            $products, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            4/*limit per page*/
+        );
+
+
         //$nbPages;
 
-        if ($nbProducts){
+       /* if ($nbProducts){
 
 
-          /*  if ($nbProducts % 4 == 0){
+           if ($nbProducts % 4 == 0){
                 // die(dump('pas de virgules',$nbProducts));
                 $nbPages = $nbProducts/4;
 
-            }elseif ($nbProducts % 2 == 0){
+            }elseif ($nbProducts % 4 > 0){
+
+
                 $nbPages = 1;
+
             }else{
                 $nbPages = 1;
-            }*/
+            }
 
            // die(dump( ' produits exist', $nbProducts));
 
@@ -64,7 +77,7 @@ class CategoryController extends Controller
 
             $nbPages = 0;
             //die(dump( $nbPages, 'pas de produits'));
-        }
+        }*/
 
 
 
@@ -76,7 +89,8 @@ class CategoryController extends Controller
             [
                 'products' => $products,
                 'category' => $category,
-                'nbPages' => $nbPages
+                //'nbPages' => $nbPages,
+                'pagination' => $pagination
             ]);
     }
 

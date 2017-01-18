@@ -3,7 +3,7 @@
 security:
     encoders:
         AdminBundle\Entity\User:
-            algorithm: bcrypt
+            algorithm: bcrypt  #algorithme utilisé pour le cryptage des mots de passe
             cost: 12
 
 
@@ -25,6 +25,11 @@ security:
             form_login:
                 login_path: security.login
                 check_path: security.login
+                # default_target_path:  accueil   #permet d'indiquer une route par defaut apres un connexion depuis le formulaire login
+
+            logout:
+                path: security.logout
+                target: homepage
 
             provider: our_db_provider
             # activate different ways to authenticate
@@ -35,7 +40,7 @@ security:
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
 
-    access_control:
+    access_control: # il determine si l'utilisateur a le bon droit
         - { path: ^/admin, roles: ROLE_ADMIN }
 
     role_hierarchy:

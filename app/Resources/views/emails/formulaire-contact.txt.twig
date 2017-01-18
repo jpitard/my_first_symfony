@@ -1,12 +1,6 @@
 
-    Coucou :) :)
+ salut {{ data.username }} !!!
 
+   Le lien pour valider votre compte : http://localhost/my_first_symfony/web/app_dev.php/confirm?email={{ data.email }}&token={{ data.token }}
 
-    Vous venez de recevoir un message de la part de  : {{ data.firstname }} {{ data.lastname }}
-
-    Voir le contenu de son message : {{ data.content }}
-
-    L'url de la page concernée : {{ data.page }}
-
-    Date du bug : {{ data.date |date('d/m/y') }}
 

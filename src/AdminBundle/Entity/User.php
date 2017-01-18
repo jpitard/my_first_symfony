@@ -9,11 +9,13 @@
 namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AdminBundle\Repository\UserRepository")
+ * @ORM\EntityListeners("AdminBundle\Listener\UserListener")
  */
 class User implements UserInterface, \Serializable
 {
@@ -25,24 +27,39 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
+     * @Assert\NotBlank(message="le nom ne peut pas être vide")
+     *
      * @ORM\Column(type="string", length=25, unique=true)
      */
     private $username;
 
     /**
+     * @Assert\NotBlank(message="le mot de passe ne peut pas être vide")
+     *
      * @ORM\Column(type="string", length=64)
      */
     private $password;
 
     /**
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
      * @ORM\Column(type="string", length=60, unique=true)
      */
     private $email;
 
     /**
-     * @ORM\Column(name="is_active", type="boolean")
+     * @ORM\Column(name="is_active", type="boolean", options={"default": false})
      */
     private $isActive;
+
+
+    /**
+     *
+     * @ORM\Column(type="string", length=32)
+     */
+    private $token;
 
     /**
      *
@@ -83,7 +100,13 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        $list=[];
+        foreach ($this->roles as $key => $value){
+            $list[] = $value->getName();
+
+        }
+        //die(dump($list));
+        return $list;
     }
 
     public function eraseCredentials()
@@ -225,5 +248,29 @@ class User implements UserInterface, \Serializable
     public function removeRole(\AdminBundle\Entity\Role $role)
     {
         $this->roles->removeElement($role);
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     *
+     * @return User
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 }

@@ -226,7 +226,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return $results;
     }
 
-    public function myFindProductionSelonCategorie($categorie_id, $offset) {
+    /*public function myFindProductionSelonCategorie($categorie_id, $offset) {
         $results = $this
             ->createQueryBuilder('p')
             ->join('p.categories', 'c')
@@ -237,9 +237,20 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
         return $results;
-    }
+    }*/
 
     public function FindProductsByCategoryCount($categorie_id) {
+        $results = $this
+            ->createQueryBuilder('p')
+            ->join('p.categories', 'c')
+            ->where('c.id = :idCat')
+            ->setParameters(['idCat' => $categorie_id])
+            ->getQuery()
+            ->getResult();
+        return $results;
+    }
+
+    public function myFindProductionSelonCategorie($categorie_id) {
         $results = $this
             ->createQueryBuilder('p')
             ->join('p.categories', 'c')

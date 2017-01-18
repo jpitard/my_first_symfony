@@ -8,13 +8,10 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
-<h1> coucou !!!</h1>
+<h1> salut {{ data.username }} !!!</h1>
 
-    <p> Vous venez de recevoir un message de la part de  : {{ data.firstname }} {{ data.lastname }} </div>
 
-    <p> Voir le contenu de son message : {{ data.content }} </p>
-    <p> L'url de la page concernée : {{ data.page }} </p>
-    <p> Date du bug : {{ data.date |date('d/m/y') }} </p>
+    <a class="" href="http://localhost/my_first_symfony/web/app_dev.php/confirm?email={{ data.email }}&token={{ data.token }}">cliquez sur ce lien pour activer votre compte</a>
 
 
 
