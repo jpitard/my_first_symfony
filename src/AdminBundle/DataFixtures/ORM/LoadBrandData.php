@@ -11,19 +11,34 @@ use AdminBundle\Entity\Brand;
 class LoadBrandData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager){
+        $faker = \Faker\Factory::create();
+        $tabBrand = [
+            'Yuliya Mochalina',
+            'Friedrich Dandl',
+            'Denis Levin ',
+            'boitmel',
+            'Kirstin McCoy',
+            'Miro Gradinšćak',
+            'Aleksandra Nosacheva',
+            'Thierry Prouvost',
+            'Marcelo Novo',
+            'Stephane Bazabas',
+            'ChA ',
+            'Marie FISCHER',
+            'REV',
+            'David Chevallier',
+        ];
 
-        for ($i=0; $i <= 10; $i++)
+        for ($i=0; $i < count($tabBrand); $i++)
         {
             $brand = new Brand();
-            $brand->setTitle('brand'.$i);
+            $brand->setTitle($tabBrand[$i]);
 
             $manager->persist($brand);
-            $manager->flush();
 
             $this->addReference('brand'.$i, $brand);
-
-
         }
+        $manager->flush();
 
     }
 
