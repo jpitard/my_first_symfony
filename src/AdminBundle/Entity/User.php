@@ -44,7 +44,17 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
 
-    
+    /**
+     *
+     * Many Users have Many Roles.
+     * @ORM\ManyToMany(targetEntity="Role")
+     * @ORM\JoinTable(name="users_roles",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+     *      )
+     */
+    private $roles;
+
 
 
     public function __construct()
@@ -192,4 +202,28 @@ class User implements UserInterface, \Serializable
 
     
 
+
+    /**
+     * Add role
+     *
+     * @param \AdminBundle\Entity\Role $role
+     *
+     * @return User
+     */
+    public function addRole(\AdminBundle\Entity\Role $role)
+    {
+        $this->roles[] = $role;
+
+        return $this;
+    }
+
+    /**
+     * Remove role
+     *
+     * @param \AdminBundle\Entity\Role $role
+     */
+    public function removeRole(\AdminBundle\Entity\Role $role)
+    {
+        $this->roles->removeElement($role);
+    }
 }

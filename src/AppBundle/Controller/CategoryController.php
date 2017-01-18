@@ -46,6 +46,8 @@ class CategoryController extends Controller
         //$nbPages;
 
         if ($nbProducts){
+
+
           /*  if ($nbProducts % 4 == 0){
                 // die(dump('pas de virgules',$nbProducts));
                 $nbPages = $nbProducts/4;

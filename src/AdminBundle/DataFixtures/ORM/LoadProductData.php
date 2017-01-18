@@ -10,31 +10,58 @@ use AdminBundle\Entity\Product;
 
 class LoadProductData extends AbstractFixture  implements OrderedFixtureInterface
 {
+    const MAX_NB_PRODUCTS =50;
+
     public function load(ObjectManager $manager){
 
-        for ($i=0; $i <= 10; $i++)
+        $faker = \Faker\Factory::create();
+        $tabBrand = [
+            'Yuliya Mochalina',
+            'Friedrich Dandl',
+            'Denis Levin ',
+            'boitmel',
+            'Kirstin McCoy',
+            'Miro Gradinšćak',
+            'Aleksandra Nosacheva',
+            'Thierry Prouvost',
+            'Marcelo Novo',
+            'Stephane Bazabas',
+            'ChA ',
+            'Marie FISCHER',
+            'REV',
+            'David Chevallier',
+        ];
+
+        $tabCategory = [
+            'peinture',
+            'sculpture',
+            'photographie',
+            'arts numériques',
+            'média mixtes',
+            'artisanat d\'art',
+            'gravures et estampes',
+            'calligraphies',
+            'design',
+            'dessin'
+        ];
+        die(dump($tabBrand, $tabCategory));
+        for ($i=0; $i < self::MAX_NB_PRODUCTS; $i++)
         {
 
             $product = new Product();
-            $product->setTitle('testLoad'.$i);
-            $product->setDescription('description test load'.$i);
-            $product->setPrice(12+$i);
-            $product->setQuantity(5+$i);
-            $product->setMarque($this->getReference('brand'.$i));
-            for ($j=0; $j < 3; $j++){
-
-                $product->addCategory($this->getReference('category'.$j));
-
-            }
-
-
+            $product->setTitle($faker->title);
+            $product->setDescription($faker->text(250));
+            $product->setPrice($faker->randomFloat(2,0,1000));
+            $product->setQuantity($faker->randomDigit);
+            $product->setImage($faker->image());
+            $product->setMarque($this->getReference($tabBrand[rand(0,13)]));
+            //$product->addCategory($tabCategory[rand(0,9)]);
+            $product->addCategory($this->getReference($tabCategory[rand(0,9)]));
             $manager->persist($product);
-            $manager->flush();
 
             $this->addReference('product'.$i, $product);
-
-
         }
+        $manager->flush();
     }
 
     /**
@@ -48,3 +75,4 @@ class LoadProductData extends AbstractFixture  implements OrderedFixtureInterfac
        return 3;
     }
 }
+

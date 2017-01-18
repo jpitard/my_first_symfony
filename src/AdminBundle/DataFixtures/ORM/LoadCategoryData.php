@@ -12,21 +12,35 @@ class LoadCategoryData extends  AbstractFixture implements OrderedFixtureInterfa
 {
     public function load(ObjectManager $manager){
 
-        for ($i=0; $i <= 10; $i++)
-        {
+        $faker = \Faker\Factory::create();
+
+        $tabCategory = [
+            'peinture',
+            'sculpture',
+            'photographie',
+            'arts numériques',
+            'média mixtes',
+            'artisanat d\'art',
+            'gravures et estampes',
+            'calligraphies',
+            'design',
+            'dessin'
+        ];
+
+        for ( $i=0; $i > count($tabCategory); $i++){
+
             $category = new Category();
-            $category->setTitle('category'.$i);
-            $category->setDescription('descriptionCategory'.$i);
+            $category->setTitle($tabCategory[$i]);
+            $category->setDescription($faker->text(250));
             $category->setPosition(rand(1,10));
             $category->setActive(rand(0,1));
 
             $manager->persist($category);
-            $manager->flush();
 
-            $this->addReference('category'.$i, $category);
-
+            $this->addReference($tabCategory[$i], $category);
 
         }
+        $manager->flush();
 
     }
 
