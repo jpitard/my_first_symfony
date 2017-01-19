@@ -10,7 +10,7 @@ use AdminBundle\Entity\Product;
 
 class LoadProductData extends AbstractFixture  implements OrderedFixtureInterface
 {
-    const MAX_NB_PRODUCTS =50;
+    const MAX_NB_PRODUCTS =20;
 
     public function load(ObjectManager $manager){
 
@@ -29,7 +29,7 @@ class LoadProductData extends AbstractFixture  implements OrderedFixtureInterfac
             'ChA ',
             'Marie FISCHER',
             'REV',
-            'David Chevallier',
+            'David Chevallier'
         ];
 
         $tabCategory = [
@@ -44,7 +44,8 @@ class LoadProductData extends AbstractFixture  implements OrderedFixtureInterfac
             'design',
             'dessin'
         ];
-        die(dump($tabBrand, $tabCategory));
+
+
         for ($i=0; $i < self::MAX_NB_PRODUCTS; $i++)
         {
 
@@ -54,11 +55,13 @@ class LoadProductData extends AbstractFixture  implements OrderedFixtureInterfac
             $product->setPrice($faker->randomFloat(2,0,1000));
             $product->setQuantity($faker->randomDigit);
             $product->setImage($faker->image());
+
+            //die(dump($tabBrand[13], $tabCategory[9]));
             $product->setMarque($this->getReference($tabBrand[rand(0,13)]));
             //$product->addCategory($tabCategory[rand(0,9)]);
             $product->addCategory($this->getReference($tabCategory[rand(0,9)]));
             $manager->persist($product);
-
+           // die(dump($tabBrand[rand(0,13)], $tabCategory[rand(0,9)]));
             $this->addReference('product'.$i, $product);
         }
         $manager->flush();

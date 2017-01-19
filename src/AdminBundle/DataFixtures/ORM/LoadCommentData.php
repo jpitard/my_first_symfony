@@ -25,7 +25,7 @@ class LoadCommentData extends AbstractFixture  implements OrderedFixtureInterfac
                 $comment = new Comment();
                 $comment->setAuthor($faker->name);
                 $comment->setContent($faker->text(300));
-                $comment->setScore(rand(0,5));
+                $comment->setScore(rand(1,5));
                 $comment->setProduct($product);
 
                 $this->addReference('comment' . $i, $comment);

@@ -15,7 +15,7 @@ class LoadBrandData extends AbstractFixture implements OrderedFixtureInterface
         $tabBrand = [
             'Yuliya Mochalina',
             'Friedrich Dandl',
-            'Denis Levin ',
+            'Denis Levin',
             'boitmel',
             'Kirstin McCoy',
             'Miro Gradinšćak',
@@ -23,10 +23,10 @@ class LoadBrandData extends AbstractFixture implements OrderedFixtureInterface
             'Thierry Prouvost',
             'Marcelo Novo',
             'Stephane Bazabas',
-            'ChA ',
+            'ChA',
             'Marie FISCHER',
             'REV',
-            'David Chevallier',
+            'David Chevallier'
         ];
 
         for ($i=0; $i < count($tabBrand); $i++)
@@ -36,7 +36,7 @@ class LoadBrandData extends AbstractFixture implements OrderedFixtureInterface
 
             $manager->persist($brand);
 
-            $this->addReference('brand'.$i, $brand);
+            $this->addReference($tabBrand[$i], $brand);
         }
         $manager->flush();
 
