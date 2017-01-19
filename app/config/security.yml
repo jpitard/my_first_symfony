@@ -41,7 +41,7 @@ security:
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
 
     access_control: # il determine si l'utilisateur a le bon droit
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: /admin, roles: ROLE_ADMIN }
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER

@@ -261,6 +261,20 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return $results;
     }
 
+    public function findProductByLocale($id, $locale) {
+        $locale = mb_strtoupper($locale);
+        $results = $this
+            ->createQueryBuilder('p')
+            ->select('p.id', "p.title$locale AS title", "p.description$locale AS description")
+            ->where('p.id = :id')
+            ->setParameters([
+                'id' => $id
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+        return $results;
+    }
+
 
 
 

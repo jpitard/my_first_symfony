@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 
 /**
- * @Route("admin/produits")
+ * @Route("/produits")
  */
 class ProductController extends Controller
 {

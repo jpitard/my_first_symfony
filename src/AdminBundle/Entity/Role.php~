@@ -28,12 +28,6 @@ class Role
      */
     private $name;
 
-    /**
-     *
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
-     */
-    private $users;
-
 
 
     /**
@@ -69,13 +63,7 @@ class Role
     {
         return $this->name;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
 
 
 }

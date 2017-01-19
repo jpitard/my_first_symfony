@@ -1,0 +1,39 @@
+{% extends 'public.layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset("asset_front/css/shop-homepage.css") }}">
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}
+
+
+{% block body %}
+    <h1>Traduction</h1>
+    <p>{{ 'admin.homepage' | trans({}, 'admin') }}</p>
+    <p>{{ 1000 | localizednumber }}</p>
+    <p>{{ 'text.content' | trans }}</p>
+    <p>{{ 'text.placeholder' | trans({'%name%': 'toto'}) }}</p>
+
+    {% set route = app.request.get('_route') %}
+    {% set route_params = app.request.get('_route_params') %}
+    {{ dump(route) }}
+    {{ dump(route_params) }}
+    {{ dump(locales) }}
+
+    <ul>
+        {% for locale in locales %}
+            {% set route_merge = route_params | merge({'_locale':locale}) %}
+            <li>
+                <a href="{{ url(route, route_merge) }}">{{ locale }}</a>
+            </li>
+
+        {% endfor %}
+    </ul>
+
+{% endblock %}

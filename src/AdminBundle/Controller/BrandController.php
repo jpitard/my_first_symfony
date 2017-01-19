@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Brand controller.
  *
- * @Route("admin/brand")
+ * @Route("/brand")
  */
 class BrandController extends Controller
 {

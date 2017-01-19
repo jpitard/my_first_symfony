@@ -35,8 +35,10 @@
                         <tr>
                             <th>Id</th>
                             <th>Image</th>
-                            <th>Title</th>
-                            <th>Description</th>
+                            <th>TitleFR</th>
+
+                            <th>DescriptionFR</th>
+
                             <th>Marque</th>
                             <th>Categorie</th>
                             <th>Prix</th>
@@ -75,11 +77,12 @@
                                     {# else #}
 
                                     {# endif #}
-                                    {{ produit.title }}
+                                    {{ produit.titleFR }}
 
 
                                 </td>
-                                <td>{{ produit.description }}</td>
+
+                                <td>{{ produit.descriptionFR }}</td>
                                 <td>{{ produit.marque.title }}</td>
                                 <td>
                                     <ul>

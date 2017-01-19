@@ -21,15 +21,16 @@ class Product
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=100)
+     * @ORM\Column(name="titleEN", type="string", length=100)
      *
-     * @Assert\NotBlank(message="le titre ne doit pas etre vide")
+     * @Assert\NotBlank(message="product.titleEN")
      *
      * @Assert\Length(
      *      min = 5,
@@ -38,21 +39,51 @@ class Product
      *      maxMessage = "le titre doit avoir {{ limit }} caractère maximum"
      * )
      */
-    private $title;
+    private $titleEN;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="titleFR", type="string", length=100)
      *
-     * @Assert\NotBlank(message="la description ne doit pas etre vide")
+     * @Assert\NotBlank(message="product.titleFR")
+     *
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 100,
+     *      minMessage = "le titre doit avoir {{ limit }} caractère minimum",
+     *      maxMessage = "le titre doit avoir {{ limit }} caractère maximum"
+     * )
+     */
+    private $titleFR;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descriptionEN", type="text")
+     *
+     * @Assert\NotBlank(message="product.descriptionEn")
      *
      * @Assert\Length(
      *      max = 300,
      *      maxMessage = "le titre doit avoir {{ limit }} caractère maximum"
      * )
      */
-    private $description;
+    private $descriptionEN;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descriptionFR", type="text")
+     *
+     * @Assert\NotBlank(message="product.descriptionFR")
+     *
+     * @Assert\Length(
+     *      max = 300,
+     *      maxMessage = "le titre doit avoir {{ limit }} caractère maximum"
+     * )
+     */
+    private $descriptionFR;
 
     /**
      * @var float
@@ -123,9 +154,17 @@ class Product
 
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -133,51 +172,99 @@ class Product
     }
 
     /**
-     * Set title
+     * Set titleEN
      *
-     * @param string $title
+     * @param string $titleEN
      *
      * @return Product
      */
-    public function setTitle($title)
+    public function setTitleEN($titleEN)
     {
-        $this->title = $title;
+        $this->titleEN = $titleEN;
 
         return $this;
     }
 
     /**
-     * Get title
+     * Get titleEN
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitleEN()
     {
-        return $this->title;
+        return $this->titleEN;
     }
 
     /**
-     * Set description
+     * Set titleFR
      *
-     * @param string $description
+     * @param string $titleFR
      *
      * @return Product
      */
-    public function setDescription($description)
+    public function setTitleFR($titleFR)
     {
-        $this->description = $description;
+        $this->titleFR = $titleFR;
 
         return $this;
     }
 
     /**
-     * Get description
+     * Get titleFR
      *
      * @return string
      */
-    public function getDescription()
+    public function getTitleFR()
     {
-        return $this->description;
+        return $this->titleFR;
+    }
+
+    /**
+     * Set descriptionEN
+     *
+     * @param string $descriptionEN
+     *
+     * @return Product
+     */
+    public function setDescriptionEN($descriptionEN)
+    {
+        $this->descriptionEN = $descriptionEN;
+
+        return $this;
+    }
+
+    /**
+     * Get descriptionEN
+     *
+     * @return string
+     */
+    public function getDescriptionEN()
+    {
+        return $this->descriptionEN;
+    }
+
+    /**
+     * Set descriptionFR
+     *
+     * @param string $descriptionFR
+     *
+     * @return Product
+     */
+    public function setDescriptionFR($descriptionFR)
+    {
+        $this->descriptionFR = $descriptionFR;
+
+        return $this;
+    }
+
+    /**
+     * Get descriptionFR
+     *
+     * @return string
+     */
+    public function getDescriptionFR()
+    {
+        return $this->descriptionFR;
     }
 
     /**
@@ -221,80 +308,12 @@ class Product
     /**
      * Get quantity
      *
-     * @return int
+     * @return integer
      */
     public function getQuantity()
     {
         return $this->quantity;
     }
-
-    /**
-     * Set marque
-     *
-     * @param \AdminBundle\Entity\Brand $marque
-     *
-     * @return Product
-     */
-    public function setMarque(\AdminBundle\Entity\Brand $marque = null)
-    {
-        $this->marque = $marque;
-
-        return $this;
-    }
-
-    /**
-     * Get marque
-     *
-     * @return \AdminBundle\Entity\Brand
-     */
-    public function getMarque()
-    {
-        return $this->marque;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add category
-     *
-     * @param \AdminBundle\Entity\Category $category
-     *
-     * @return Product
-     */
-    public function addCategory(\AdminBundle\Entity\Category $category)
-    {
-        $this->categories[] = $category;
-
-        return $this;
-    }
-
-    /**
-     * Remove category
-     *
-     * @param \AdminBundle\Entity\Category $category
-     */
-    public function removeCategory(\AdminBundle\Entity\Category $category)
-    {
-        $this->categories->removeElement($category);
-    }
-
-    /**
-     * Get categories
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCategories()
-    {
-        return $this->categories;
-    }
-
-
-
 
     /**
      * Set createdAT
@@ -368,9 +387,61 @@ class Product
         return $this->image;
     }
 
-    public function _toString()
+    /**
+     * Set marque
+     *
+     * @param \AdminBundle\Entity\Brand $marque
+     *
+     * @return Product
+     */
+    public function setMarque(\AdminBundle\Entity\Brand $marque)
     {
-       return $this->name;
+        $this->marque = $marque;
 
+        return $this;
+    }
+
+    /**
+     * Get marque
+     *
+     * @return \AdminBundle\Entity\Brand
+     */
+    public function getMarque()
+    {
+        return $this->marque;
+    }
+
+    /**
+     * Add category
+     *
+     * @param \AdminBundle\Entity\Category $category
+     *
+     * @return Product
+     */
+    public function addCategory(\AdminBundle\Entity\Category $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \AdminBundle\Entity\Category $category
+     */
+    public function removeCategory(\AdminBundle\Entity\Category $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

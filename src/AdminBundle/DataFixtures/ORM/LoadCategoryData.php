@@ -27,7 +27,7 @@ class LoadCategoryData extends  AbstractFixture implements OrderedFixtureInterfa
             'dessin'
         ];
 
-        for ( $i=0; $i > count($tabCategory); $i++){
+        for ( $i=0; $i < count($tabCategory); $i++){
 
             $category = new Category();
             $category->setTitle($tabCategory[$i]);

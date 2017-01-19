@@ -118,6 +118,7 @@ class SecurityController extends Controller
             'formUser' => $formUser->createView()
         ]);
     }
+
     /**
      *
      * @Route("/confirm", name="security.confirm")
@@ -150,5 +151,19 @@ class SecurityController extends Controller
         return $this->redirectToRoute('security.login');
 
     }
+
+    /**
+     *
+     * @Route("/profil", name="security.profil")
+     */
+    public function profilAction(Request $request)
+    {
+
+
+    }
+
+
+
+
 
 }

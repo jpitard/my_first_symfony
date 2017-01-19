@@ -33,14 +33,14 @@
         {{ form_start(formProduct, {attr: {novalidate: "novalidate", class:"form-horizontal"}}) }}
         <div class="box-body ">
             <div class="form-group">
-                {{ form_errors(formProduct.title) }}
-                {{ form_label(formProduct.title,"Entrez le titre du produit",
+                {{ form_errors(formProduct.titleFR) }}
+                {{ form_label(formProduct.titleFR,"Entrez le titre du produit FR",
                 {
                     label_attr:{ class:"col-sm-2 control-label" }
                 })
                 }}
                 <div class="col-sm-10">
-                    {{ form_widget(formProduct.title,
+                    {{ form_widget(formProduct.titleFR,
                     {
                         attr:{ class: " form-control" },
                         id: "adminbundle_product_title"
@@ -48,6 +48,23 @@
                     }}
                 </div>
             </div>
+            <div class="box-body ">
+                <div class="form-group">
+                    {{ form_errors(formProduct.titleEN) }}
+                    {{ form_label(formProduct.titleEN,"Entrez le titre du produit EN",
+                    {
+                        label_attr:{ class:"col-sm-2 control-label" }
+                    })
+                    }}
+                    <div class="col-sm-10">
+                        {{ form_widget(formProduct.titleEN,
+                        {
+                            attr:{ class: " form-control" },
+                            id: "adminbundle_product_title"
+                        })
+                        }}
+                    </div>
+                </div>
             <div class="form-group">
                 {{ form_errors(formProduct.price) }}
                 {{ form_label(formProduct.price,"Entrez le prix du produit",
@@ -135,15 +152,15 @@
             {% endspaceless %}
 
             <div class="form-group ">
-                {{ form_errors(formProduct.description) }}
-                {{ form_label(formProduct.description, "Entrez la description du produit",
+                {{ form_errors(formProduct.descriptionFR) }}
+                {{ form_label(formProduct.descriptionFR, "Entrez la description du produit FR",
                 {
                     label_attr:{ class:"col-sm-2 control-label" }
                 })
                 }}
 
                 <div class="col-sm-10">
-                    {{ form_widget(formProduct.description,
+                    {{ form_widget(formProduct.descriptionFR,
                     {
                         attr:{
                         placeholder: "Entrez...",
@@ -155,6 +172,27 @@
                     }}
                 </div>
             </div>
+                <div class="form-group ">
+                    {{ form_errors(formProduct.descriptionEN) }}
+                    {{ form_label(formProduct.descriptionEN, "Entrez la description du produit EN",
+                    {
+                        label_attr:{ class:"col-sm-2 control-label" }
+                    })
+                    }}
+
+                    <div class="col-sm-10">
+                        {{ form_widget(formProduct.descriptionEN,
+                        {
+                            attr:{
+                            placeholder: "Entrez...",
+                            class: "form-control",
+                            rows: "3"
+                        },
+                            id: "adminbundle_product_description"
+                        })
+                        }}
+                    </div>
+                </div>
         </div>
         <div class="box-footer">
 

@@ -10,7 +10,7 @@ use AdminBundle\Entity\Comment;
 
 class LoadCommentData extends AbstractFixture  implements OrderedFixtureInterface
 {
-    const MAX_NB_PRODUCTS =50;
+    const MAX_NB_PRODUCTS =25;
 
     public function load(ObjectManager $manager){
 
@@ -20,18 +20,21 @@ class LoadCommentData extends AbstractFixture  implements OrderedFixtureInterfac
         for ($i=0; $i < self::MAX_NB_PRODUCTS; $i++)
         {
             $product = $this->getReference('product'.$i);
+           // $nbComment = rand(1,10);
+           // $nbComment = 2;
 
-            for ($i=0; $i <= 5 ; $i++) {
+
                 $comment = new Comment();
                 $comment->setAuthor($faker->name);
                 $comment->setContent($faker->text(300));
-                $comment->setScore(rand(0,5));
+                $comment->setScore(rand(1,5));
                 $comment->setProduct($product);
 
-                $this->addReference('comment' . $i, $comment);
-            }
+                $manager->persist($comment);
+
+            $manager->flush();
         }
-        $manager->flush();
+
     }
 
     /**

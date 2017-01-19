@@ -67,9 +67,9 @@
                             <img src="{{ asset('upload/' ~ produit.image) }}" alt="">
                             <div class="caption">
                                 <h4 class="pull-right">{{'€'~ produit.price|number_format }}</h4>
-                                <h4><a href="{{ path('app_products_show', { id: produit.id }) }}">{{ produit.title }}</a>
+                                <h4><a href="{{ path('app_products_show', { id: produit.id }) }}">{{ produit.titleFR }}</a>
                                 </h4>
-                                <p>{{ produit.description }}</p>
+                                <p>{{ produit.descriptionFR }}</p>
                             </div>
                             <div class="ratings">
                                 <p class="pull-right">15 reviews</p>

@@ -44,16 +44,20 @@ class LoadProductData extends AbstractFixture  implements OrderedFixtureInterfac
             'design',
             'dessin'
         ];
-        die(dump($tabBrand, $tabCategory));
+        //die(dump($tabBrand, $tabCategory));
         for ($i=0; $i < self::MAX_NB_PRODUCTS; $i++)
         {
 
             $product = new Product();
-            $product->setTitle($faker->title);
-            $product->setDescription($faker->text(250));
+            $product->setTitleEN($faker->title);
+            $product->setTitleFR($faker->title);
+            $product->setDescriptionEN($faker->text(250));
+            $product->setDescriptionFR($faker->text(250));
             $product->setPrice($faker->randomFloat(2,0,1000));
             $product->setQuantity($faker->randomDigit);
-            $product->setImage($faker->image());
+            $product->setImage("default.jpeg");
+            $product->setCreatedAT($faker->dateTime);
+            $product->setUpdatedAt($faker->dateTime);
             $product->setMarque($this->getReference($tabBrand[rand(0,13)]));
             //$product->addCategory($tabCategory[rand(0,9)]);
             $product->addCategory($this->getReference($tabCategory[rand(0,9)]));
