@@ -15,25 +15,35 @@
 
 {% block body %}
     <h1>Traduction</h1>
+
+    {% set locale = app.request.locale %}
+
+    {{ attribute(result, 'title' ~ locale) }}
+
+
+
     <p>{{ 'admin.homepage' | trans({}, 'admin') }}</p>
     <p>{{ 1000 | localizednumber }}</p>
     <p>{{ 'text.content' | trans }}</p>
     <p>{{ 'text.placeholder' | trans({'%name%': 'toto'}) }}</p>
 
-    {% set route = app.request.get('_route') %}
-    {% set route_params = app.request.get('_route_params') %}
-    {{ dump(route) }}
-    {{ dump(route_params) }}
-    {{ dump(locales) }}
+    {#{% set route = app.request.get('_route') %}#}
+    {#{% set route_params = app.request.get('_route_params') %}#}
+    {#{{ dump(route) }}#}
+    {#{{ dump(route_params) }}#}
+    {#{{ dump(locales) }}#}
+
+
+
 
     <ul>
-        {% for locale in locales %}
-            {% set route_merge = route_params | merge({'_locale':locale}) %}
-            <li>
-                <a href="{{ url(route, route_merge) }}">{{ locale }}</a>
-            </li>
+        {#{% for locale in locales %}#}
+            {#{% set route_merge = route_params | merge({'_locale':locale}) %}#}
+            {#<li>#}
+                {#<a href="{{ url(route, route_merge) }}">{{ locale }}</a>#}
+            {#</li>#}
 
-        {% endfor %}
+        {#{% endfor %}#}
     </ul>
 
 {% endblock %}

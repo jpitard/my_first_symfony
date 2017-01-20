@@ -61,6 +61,7 @@ class User implements UserInterface, \Serializable
      */
     private $token;
 
+
     /**
      *
      * Many Users have Many Roles.
@@ -136,6 +137,8 @@ class User implements UserInterface, \Serializable
             // $this->salt
             ) = unserialize($serialized);
     }
+
+
 
     /**
      * Get id
@@ -223,8 +226,28 @@ class User implements UserInterface, \Serializable
         return $this->isActive;
     }
 
-    
+    /**
+     * Set token
+     *
+     * @param string
+     *
+     * @return User
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+        return $this;
+    }
 
+    /**
+     * Get token
+     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
 
     /**
      * Add role
@@ -248,29 +271,5 @@ class User implements UserInterface, \Serializable
     public function removeRole(\AdminBundle\Entity\Role $role)
     {
         $this->roles->removeElement($role);
-    }
-
-    /**
-     * Set token
-     *
-     * @param string $token
-     *
-     * @return User
-     */
-    public function setToken($token)
-    {
-        $this->token = $token;
-
-        return $this;
-    }
-
-    /**
-     * Get token
-     *
-     * @return string
-     */
-    public function getToken()
-    {
-        return $this->token;
     }
 }

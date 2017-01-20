@@ -17,10 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 
-/**
- *
- * @Route("/{_locale}")
- */
+
 class TranslationController extends Controller
 {
 
@@ -34,10 +31,12 @@ class TranslationController extends Controller
 
         $locale =  $request->getLocale();
         $doctrine = $this->getDoctrine();
-        $result = $doctrine->getRepository('AdminBundle:Product')->findProductByLocale(12, $locale);
-        die(dump($result));
+      // $result = $doctrine->getRepository('AdminBundle:Product')->findProductByLocale(12, $locale);
+        $result = $doctrine->getRepository('AdminBundle:Product')->find(12);
+        //die(dump($result));
 
         return $this->render('Public/translation/index.html.twig', [
+            'result' => $result
 
         ]);
 

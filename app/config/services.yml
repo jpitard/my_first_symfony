@@ -8,6 +8,13 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
+    # http://symfony.com/doc/current/reference/dic_tags.html
+    admin.subscriber.category.form:
+        class: AdminBundle\Subscriber\CategoryFormSubscriber
+        tags:
+          - { name: kernel.event_subscriber}
+
+
     admin.twig.extension:
         class: AdminBundle\Twig\AppExtension
         arguments: [ '@doctrine', '@twig' ]

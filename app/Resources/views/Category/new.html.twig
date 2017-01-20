@@ -96,3 +96,16 @@
 
 
 {% endblock %}
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script src="{{ asset('plugins/ckeditor/ckeditor.js') }}"></script>
+
+    <script>
+        CKEDITOR.replace( 'form_title' );
+    </script>
+
+
+
+{% endblock %}

@@ -48,6 +48,8 @@
                 </div>
             </div>
 
+            {% if formCategory.position is defined %}
+
             <div class="form-group">
                 {{ form_errors(formCategory.position) }}
                 {{ form_label(formCategory.position,"Entrez la position de la categorie",
@@ -66,6 +68,7 @@
                 </div>
 
             </div>
+            {% endif %}
 
             <div class="form-group">
                 {{ form_errors(formCategory.description) }}

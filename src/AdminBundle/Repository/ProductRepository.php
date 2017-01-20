@@ -147,7 +147,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->getResult()
         ;
 
-        dump($results);exit;
+       // dump($results);exit;
 
         //die(dump($query->getResult()));
 
@@ -190,7 +190,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
            // ->getResult()
         ;
 
-        dump($results);exit;
+        //dump($results);exit;
 
         //die(dump($query->getResult()));
 

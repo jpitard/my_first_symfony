@@ -32,6 +32,8 @@ class SecurityController extends Controller
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
+
+
         return $this->render('Security/login.html.twig', array(
             'last_username' => $lastUsername,
             'error'         => $error,
@@ -154,15 +156,113 @@ class SecurityController extends Controller
 
     /**
      *
-     * @Route("/profil", name="security.profil")
+     * @Route("/checkProfil", name="security.checkProfil")
      */
     public function profilAction(Request $request)
     {
+        //$user = $this->getUser();
+        //die(dump($user->getR));
+
+        $recupArrayRoles = $this->getUser()->getRoles();
+
+        foreach ($recupArrayRoles as $value)
+        {
+            if ($value === 'ROLE_ADMIN'){
+
+                return $this->redirectToRoute('security.profilAdmin');
+            }else{
+                return $this->redirectToRoute('security.profilUser');
+            }
+
+        }
+
 
 
     }
 
+    /**
+     *
+     * @Route("/profil", name="security.profilUser")
+     */
+    public function prodilUserAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
 
+        $user = $this->getUser();
+
+        //die(dump($user));
+
+
+        $formUser = $this->createForm(UserType::class, $user);
+
+
+        $formUser->handleRequest($request);
+
+        if ($formUser->isSubmitted() && $formUser->isValid()) {
+
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Les informations vous concernant ont été modifiées.');
+
+            return $this->redirectToRoute('homepage');
+        }
+
+
+        return $this->render('Security/editUser.html.twig', ['formUser' => $formUser->createView(), 'user' => $user]);
+
+
+    }
+
+    /**
+     *
+     * @Route("admin/profil", name="security.profilAdmin")
+     */
+    public function prodilAmdinAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $userAdmin = $this->getUser();
+       // die(dump($userAdmin));
+
+        $formUserAdmin = $this->createForm(UserType::class, $userAdmin);
+
+
+        $formUserAdmin->handleRequest($request);
+
+        if ($formUserAdmin->isSubmitted() && $formUserAdmin->isValid()) {
+
+
+            $em->persist($formUserAdmin);
+            $em->flush();
+
+            $this->addFlash('success', 'Les informations vous concernant ont été modifiées.');
+
+            return $this->redirectToRoute('homepage');
+        }
+
+
+        return $this->render('Security/editAdmin.html.twig', ['formUserAdmin' => $formUserAdmin->createView(), 'userAdmin' => $userAdmin]);
+
+    }
+
+    /**
+     *
+     * @Route("admin/show", name="security.showAdmin")
+     */
+    public function adminShowAction(Request $request)
+    {
+
+        $userAdmin = $this->getUser();
+        // die(dump($userAdmin));
+
+        return $this->render('Security/adminShow.html.twig', [
+
+            'userAdmin' => $userAdmin
+        ]);
+
+    }
 
 
 

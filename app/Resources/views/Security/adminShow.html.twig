@@ -1,0 +1,61 @@
+{% extends 'layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
+{% endblock %}
+
+{% block titleContent %}Categories <small> </small>{% endblock %}
+
+{% block breadcrumb %}
+{{ parent() }}
+<li class="active"> <a href=""> Categories </a> </li>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Information sur le </h3>
+        </div>
+
+        <div class="box-body ">
+            <dl class="dl-horizontal center ">
+
+                <dt>Nom</dt>
+                <dd>{{ userAdmin.username }}</dd>
+                <dt>Email</dt>
+                <dd>{{ userAdmin.email }}</dd>
+
+            </dl>
+        </div>
+
+        <div class="box-footer">
+            <a class="btn btn-primary" href="{{ url('security.profilAdmin' ) }}"><i class="fa fa-trash-o"></i> Editer</a>
+
+
+        </div>
+
+    </div>
+
+{% endblock%}
+
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+        });
+    </script>
+
+
+
+{% endblock %}

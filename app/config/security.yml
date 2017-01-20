@@ -25,7 +25,7 @@ security:
             form_login:
                 login_path: security.login
                 check_path: security.login
-                # default_target_path:  accueil   #permet d'indiquer une route par defaut apres un connexion depuis le formulaire login
+                default_target_path: security.checkProfil   #permet d'indiquer une route par defaut apres un connexion depuis le formulaire login
 
             logout:
                 path: security.logout

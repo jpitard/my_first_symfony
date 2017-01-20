@@ -42,11 +42,6 @@ class Category
      *
      * @ORM\Column(name="description", type="text")
      *
-     * @Assert\NotBlank(message="La description ne peut pas être vide")
-     *
-     * @Assert\Length(
-     *      max = 300,
-     *      minMessage = "la description doit contenu au maximum  {{ limit }} caractères")
      *
      */
     private $description;
