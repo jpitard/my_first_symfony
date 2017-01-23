@@ -18,10 +18,11 @@ class MenuController extends Controller
 
         $tab_menu = array(
 
-            array('intitule_onglet' => 'Tableau de bord','route' => 'admin', 'lien' => $this->generateUrl('admin'), 'icone' => 'dashboard'),
-            array('intitule_onglet' => 'Produits', 'route' => 'product_list','lien' => $this->generateUrl('product_list'), 'icone' => ''),
-            array('intitule_onglet' => 'Categories', 'route' => 'category_list', 'lien' => $this->generateUrl('categories_list'), 'icone' => ''),
-            array('intitule_onglet' => 'Marques', 'route' => 'brand_index', 'lien' => $this->generateUrl('brand_index'), 'icone' => '')
+            array('intitule_onglet' => 'Tableau de bord','lien' => $this->generateUrl('admin'), 'icone' => 'dashboard'),
+            array('intitule_onglet' => 'Produits', 'lien' => $this->generateUrl('product_list'), 'icone' => ''),
+            array('intitule_onglet' => 'Categories', 'lien' => $this->generateUrl('categories_list'), 'icone' => ''),
+            array('intitule_onglet' => 'Marques', 'lien' => $this->generateUrl('brand_index'), 'icone' => ''),
+            array('intitule_onglet' => 'Users', 'lien' => $this->generateUrl('user_list'), 'icone' => '')
 
         );
 

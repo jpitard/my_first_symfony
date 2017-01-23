@@ -14,6 +14,12 @@ services:
         tags:
           - { name: kernel.event_subscriber}
 
+    admin.subscriber.kernel.events:
+          class: AdminBundle\Subscriber\KernelEventsSubscriber
+          arguments: ['@twig' ] # Permet d'utiliser le service Twig le nom du service est twig_environnment
+          tags:
+            - { name: kernel.event_subscriber}
+
 
     admin.twig.extension:
         class: AdminBundle\Twig\AppExtension

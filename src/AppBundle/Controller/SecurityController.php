@@ -15,6 +15,7 @@ use AdminBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class SecurityController extends Controller
 {
@@ -175,9 +176,6 @@ class SecurityController extends Controller
             }
 
         }
-
-
-
     }
 
     /**
@@ -191,11 +189,7 @@ class SecurityController extends Controller
         $user = $this->getUser();
 
         //die(dump($user));
-
-
         $formUser = $this->createForm(UserType::class, $user);
-
-
         $formUser->handleRequest($request);
 
         if ($formUser->isSubmitted() && $formUser->isValid()) {
@@ -212,7 +206,6 @@ class SecurityController extends Controller
 
         return $this->render('Security/editUser.html.twig', ['formUser' => $formUser->createView(), 'user' => $user]);
 
-
     }
 
     /**
@@ -227,7 +220,6 @@ class SecurityController extends Controller
        // die(dump($userAdmin));
 
         $formUserAdmin = $this->createForm(UserType::class, $userAdmin);
-
 
         $formUserAdmin->handleRequest($request);
 
@@ -263,6 +255,69 @@ class SecurityController extends Controller
         ]);
 
     }
+
+    /**
+     *
+     * @Route("admin/users", name="user_list")
+     */
+    public function indexAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository("AdminBundle:User")
+            ->findAll();
+
+
+        return $this->render('Security/index.html.twig',
+            [
+                'users' => $users
+            ]);
+    }
+
+    /**
+     * @Route("admin/user/supprimer/{id}", name="user_remove")
+     */
+    public function removeAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AdminBundle:User')->find($id);
+
+        // Vérification si le produit est bien en BDD
+        if (!$user) {
+            throw $this->createNotFoundException("user n'existe pas");
+        }
+
+        $em->remove($user);
+        $em->flush();
+
+        $messageSuccess = 'l\'utilisateur a été supprimé';
+
+
+        if ($request->isXmlHttpRequest()) {
+            // use Symfony\Component\HttpFoundation\JsonResponse;
+            return new JsonResponse(['message' => $messageSuccess]);
+        }
+
+        $this->addFlash('success', 'Votre categorie a été supprimé');
+
+        // Redirection sur la page qui liste tous les produits
+        return $this->redirectToRoute('user_list');
+    }
+
+    /**
+     * @Route("admin/user/{id}", name="user_show")
+     * @ParamConverter("user", class="AdminBundle:User")
+     */
+    public function showAction(User $user)
+    {
+
+        return $this->render('Security/show.html.twig', [
+
+            'user' => $user
+        ]);
+
+    }
+
 
 
 

@@ -37,4 +37,26 @@ class MainController extends Controller
     }
 
 
+    /**
+     * @Route("/disclaimer-cookies", name="disclaimer.cookies")
+     *
+     */
+    public function disclaimerCookiesAction(Request $request)
+    {
+
+        $disclaimer = $request->get('disclaimer');
+        //dump($disclaimer); exit;
+
+        $session = $request->getSession();
+        $session->set('disclaimer', $disclaimer);
+
+
+        die(dump($session));
+
+
+
+
+    }
+
+
 }

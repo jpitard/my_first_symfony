@@ -48,7 +48,20 @@
                     </li>
                     <li>
                         <a href="#">Services</a>
+
                     </li>
+
+                    <li>
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+
+                            <a href="{{ path('security.logout') }}"> Déconnxion</a>
+                        {% else %}
+
+                            <a href="{{ path('security.login') }}">Connexion</a>
+
+                        {% endif %}
+                    </li>
+
                     <li>
                         <a href="#">Contact</a>
                     </li>
@@ -89,6 +102,28 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ asset("bootstrap/js/bootstrap.min.js") }}"></script>
+
+    <script>
+
+        var btnCookie = $('.cookies a');
+        btnCookie.on('click', clicBtnCookie);
+        function clicBtnCookie(e) {
+            //alert('ok');
+            $.ajax({
+                method: 'POST',
+                url: 'http://localhost/my_first_symfony/web/app_dev.php/en/disclaimer-cookies',
+                data: 'disclaimer=1',
+                success: onSuccess,
+            });
+
+        }
+
+        function onSuccess() {
+            console.log(data);
+
+        }
+
+    </script>
 
 {% endblock %}
 
