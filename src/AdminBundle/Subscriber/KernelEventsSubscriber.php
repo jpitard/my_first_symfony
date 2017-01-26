@@ -11,6 +11,7 @@ namespace AdminBundle\Subscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
@@ -19,14 +20,17 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class KernelEventsSubscriber implements EventSubscriberInterface
 {
     private $twig;
+    private $session;
 
     /**
      * KernelEventsSubscriber constructor.
      * @param $twig
      */
-    public function __construct(\Twig_Environment $twig)
+    public function __construct(\Twig_Environment $twig, Session $session)
     {
         $this->twig = $twig;
+        $this->session = $session;
+
     }
 
 
@@ -44,7 +48,18 @@ class KernelEventsSubscriber implements EventSubscriberInterface
     public function addCookiesBlock(FilterResponseEvent $event){
 
         $content =  $event->getResponse()->getContent();
-        $content = str_replace('<body class="hold-transition skin-blue sidebar-mini">', '<body class="hold-transition skin-blue sidebar-mini"><div class="cookies" style="margin-top: 100px; margin-left: 50px;"> ce site utilise les cookies <a href="#" class="btn btn-primary"> j\'ai compris.</a></div>', $content);
+
+        //dump($this->session); exit;
+
+        if (!$this->session->has('disclaimer')){
+
+            $content = str_replace('<body class="hold-transition skin-blue sidebar-mini">','
+                <body class="hold-transition skin-blue sidebar-mini">
+                    <div class="cookies" style="margin-top: 100px; margin-left: 50px;">ce site utilise les cookies <a href="#" class="btn btn-primary"> j\'ai compris.</a>
+                 </div>', $content);
+
+        }
+
 
         $response = new Response($content);
         $event->setResponse($response);

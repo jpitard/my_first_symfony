@@ -18,17 +18,17 @@ class UserListener
 {
     private $tokenService;
 
-    /*public function __construct(TokenService $tokenService)
+    public function __construct(TokenService $tokenService)
     {
-        //$this->tokenService = $tokenService;
+        $this->tokenService = $tokenService;
 
-    }*/
+    }
 
 
     public function prePersist(User $entity, LifecycleEventArgs $args)
     {
-       // $entity->setToken($this->tokenService->generateUniqId());
-        //die(dump($entity));
+       $entity->setToken($this->tokenService->generateUniqId());
+       //die(dump($entity));
     }
 
 }

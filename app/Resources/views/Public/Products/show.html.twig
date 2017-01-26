@@ -21,14 +21,24 @@
         <div class="col-md-9">
 
             <div class="thumbnail">
-                <img class="img-responsive" src="{{ asset('upload/' ~ product.image) }}" alt="">
-                <div class="caption-full">
-                    <h4 class="pull-right">{{'€'~ product.price }}</h4>
-                    <h4><a href="{{ path('app_products_show', { id: product.id }) }}">{{ product.title }}</a>
-                    </h4>
+                {#{{ dump(product) }}#}
+                <form action="{{ path('add_cart',{id: product.id}) }}" method="get">
+{##}
+                    <img class="img-responsive" src="{{ asset('upload/' ~ product.image) }}" alt="">
+                    <div class="caption-full">
+                        <h4 class="pull-right">{{'€'~ product.price }}</h4>
+                        <h4><a href="{{ path('app_products_show', { id: product.id }) }}">{{ product.titleFR | trans }}</a>
+                        </h4>
 
-                    <p>{{ product.description }}</p>
-                </div>
+                        <p>{{ product.descriptionFR | trans }}</p>
+                        <p><input type="number" name="qty" value="1" min="1" max="10"></p>
+                    </div>
+
+                    <button class="btn btn-primary"> Ajouter au panier</button>
+
+                </form>
+{##}
+
                 <div class="ratings">
                     <p class="pull-right">3 reviews</p>
                     <p>

@@ -28,9 +28,6 @@ class ProductController extends Controller
                     ->findAll();
 
         //die(dump($produits));
-
-
-
         return $this->render('Public/Products/index.html.twig',
         	[
         		'produits' => $produits
@@ -70,8 +67,6 @@ class ProductController extends Controller
 
             return $this->redirectToRoute('app_products_show', ['id'=>$product->getId()]);
         }
-
-
 
 
         return $this->render('Public/Products/show.html.twig',

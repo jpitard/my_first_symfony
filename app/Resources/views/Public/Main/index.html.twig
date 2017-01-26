@@ -14,6 +14,23 @@
 
 
 {% block body %}
+    {{ dump(fileCSV) }}
+
+    <table class="table table-striped">
+        <tr>
+            <th>Ip</th>
+            <th>Date</th>
+
+        </tr>
+        {% for line in fileCSV %}
+            {% set data = line|split(';') %}
+            <tr>
+                <th>{{ data[0] }}</th>
+                <th>{{ data[1] }}</th>
+            </tr>
+            {% endfor %}
+
+    </table>
 <div class="container">
     <div class="row">
         {{ render(controller('AppBundle:RenderCategory:index')) }}

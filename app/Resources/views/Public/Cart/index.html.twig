@@ -1,0 +1,97 @@
+{% extends 'public.layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset("asset_front/css/shop-homepage.css") }}">
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}
+
+
+{% block body %}
+
+    {#{{ dump(tabproducts) }}#}
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            {{ render(controller('AppBundle:RenderCategory:index')) }}
+
+            <div class="col-md-9">
+                <!-- Table row -->
+                <div class="row">
+                    <div class="col-xs-12 table-responsive">
+
+                        {% if  tabproducts  %}
+                            <form  action="{{ path('update_cart') }}" method="post">
+                                <table class="table table-striped">
+
+                                    <thead>
+                                    <tr>
+                                        <th>Qty</th>
+                                        <th>Title</th>
+                                        <th>Prix</th>
+                                        <th>Subtotal</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    {% for objets in tabproducts %}
+
+                                        {#{{ dump(objets) }}#}
+                                        <tr>
+                                            <td>
+                                                <input type="number" name="qty[]" value="{{ objets.qty }}" min="1" max="10">
+                                                <input type="hidden" name="id[]" value="{{ objets.product.id }}">
+                                            </td>
+                                            <td>{{ objets.product.titleFR | trans }}</td>
+                                            <td>{{ objets.product.price }}</td>
+
+                                            {% set prixTotal =  objets.qty *  objets.product.price %}
+
+                                            <td>{{ prixTotal }}</td>
+                                            <td><a class="btn btn-danger" href="{{ path('remove_cart', {id: objets.product.id}) }}">Supprimer</a></td>
+                                        </tr>
+
+                                    {% endfor %}
+
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+
+                                        <td class="">
+                                            <button class="btn btn-primary"> Modifier le panier</button>
+                                        </td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </form>
+
+                        {% else %}
+
+                          <p>  {{ message }}</p>
+
+                        {% endif %}
+
+
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+
+            </div>
+
+        </div>
+    </div>
+    <!-- /.container -->
+
+
+
+
+{% endblock %}

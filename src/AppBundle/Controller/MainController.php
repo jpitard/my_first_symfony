@@ -2,11 +2,14 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Event\VisitContactEvent;
+use AppBundle\Event\VisitEvents;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class MainController extends Controller
@@ -26,12 +29,21 @@ class MainController extends Controller
 
         //die(dump($produits));
 
+        $eventDispatcher = $this->get('event_dispatcher');
+
+        $event = new VisitContactEvent();
+        $event->setIp($request->getClientIp());
+        $eventDispatcher->dispatch(VisitEvents::CONTACT, $event);
+
+        $fileCSV = file('../var/logs/contactFormLogs.csv');
+        //dump($fileCSV);
 
 
         return $this->render('Public/Main/index.html.twig',
             [
                 'produits' => $produits,
-                'produitsCarou' => $produitsCarou
+                'produitsCarou' => $produitsCarou,
+                'fileCSV' => $fileCSV
             ]);
 
     }
@@ -50,8 +62,10 @@ class MainController extends Controller
         $session = $request->getSession();
         $session->set('disclaimer', $disclaimer);
 
+        return new JsonResponse(['success'=>'ok']);
 
-        die(dump($session));
+
+       // die(dump($session));
 
 
 

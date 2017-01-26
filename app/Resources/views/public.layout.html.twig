@@ -54,7 +54,7 @@
                     <li>
                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 
-                            <a href="{{ path('security.logout') }}"> Déconnxion</a>
+                            <a href="{{ path('security.logout') }}"> Déconnexion</a>
                         {% else %}
 
                             <a href="{{ path('security.login') }}">Connexion</a>
@@ -64,6 +64,9 @@
 
                     <li>
                         <a href="#">Contact</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('show_cart') }}">Panier</a>
                     </li>
                 </ul>
             </div>
@@ -113,6 +116,7 @@
                 method: 'POST',
                 url: 'http://localhost/my_first_symfony/web/app_dev.php/en/disclaimer-cookies',
                 data: 'disclaimer=1',
+                dataType: 'json',
                 success: onSuccess,
             });
 
@@ -120,6 +124,7 @@
 
         function onSuccess() {
             console.log(data);
+            btnCookie.parent().slideUp();
 
         }
 

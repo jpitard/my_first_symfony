@@ -24,11 +24,11 @@ class ProductListener
     private $imageServeur;
     private $unlinkService;
 
-    public function __construct(UploadService $AppelUploadService, $default_img_declare )
+    public function __construct(UploadService $AppelUploadService, $default_img_declare  )
     {
         $this->uploadService = $AppelUploadService;
         $this->default_img = $default_img_declare;
-       // $this->unlinkService = $unlinkService;
+        //$this->unlinkService = $unlinkService;
 
     }
 
@@ -47,6 +47,7 @@ class ProductListener
 
         $image = $entity->getImage();
         //dump($image);die;
+
         if (is_null($image)) {
             $fileName = $this->default_img;
         } else {

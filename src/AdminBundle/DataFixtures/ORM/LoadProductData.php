@@ -2,11 +2,14 @@
 
 namespace AdminBundle\DataFixtures\ORM;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AdminBundle\Entity\Product;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class LoadProductData extends AbstractFixture  implements OrderedFixtureInterface
 {
@@ -44,6 +47,11 @@ class LoadProductData extends AbstractFixture  implements OrderedFixtureInterfac
             'design',
             'dessin'
         ];
+
+
+        //
+        unset($manager->getClassMetadata('AdminBundle:Product')->entityListeners['prePersist']);
+
         //die(dump($tabBrand, $tabCategory));
         for ($i=0; $i < self::MAX_NB_PRODUCTS; $i++)
         {
@@ -55,13 +63,18 @@ class LoadProductData extends AbstractFixture  implements OrderedFixtureInterfac
             $product->setDescriptionFR($faker->text(250));
             $product->setPrice($faker->randomFloat(2,0,1000));
             $product->setQuantity($faker->randomDigit);
-            $product->setImage("default.jpeg");
+
+            //$image = new UploadedFile(__DIR__ . '/../../../../web/upload/2728c01db0b654c88b3e7f876f05663b.jpeg', 'image.jpg', "image/jpeg", '81560');
+            $product->setImage('image.jpg');
+
             $product->setCreatedAT($faker->dateTime);
             $product->setUpdatedAt($faker->dateTime);
             $product->setMarque($this->getReference($tabBrand[rand(0,13)]));
             //$product->addCategory($tabCategory[rand(0,9)]);
             $product->addCategory($this->getReference($tabCategory[rand(0,9)]));
             $manager->persist($product);
+
+
 
             $this->addReference('product'.$i, $product);
         }

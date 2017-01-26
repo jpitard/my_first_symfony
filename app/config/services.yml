@@ -9,6 +9,11 @@ services:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
     # http://symfony.com/doc/current/reference/dic_tags.html
+    app.subscriber.visit.events:
+        class: AppBundle\Subscriber\VisitEventsSubscriber
+        tags:
+            - { name: kernel.event_subscriber }
+
     admin.subscriber.category.form:
         class: AdminBundle\Subscriber\CategoryFormSubscriber
         tags:
@@ -16,7 +21,7 @@ services:
 
     admin.subscriber.kernel.events:
           class: AdminBundle\Subscriber\KernelEventsSubscriber
-          arguments: ['@twig' ] # Permet d'utiliser le service Twig le nom du service est twig_environnment
+          arguments: ['@twig', '@session' ] # Permet d'utiliser le service Twig le nom du service est twig_environnment
           tags:
             - { name: kernel.event_subscriber}
 
