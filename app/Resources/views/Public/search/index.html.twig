@@ -1,0 +1,66 @@
+{% extends 'public.layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset("asset_front/css/shop-homepage.css") }}">
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}
+
+
+{% block body %}
+    <script src="{{ asset("plugins/jQuery/jquery-2.2.3.min.js") }}"></script>
+    <h>Recherche</h>
+
+    <form>
+        <input type="search">
+        <input type="submit">
+
+    </form>
+    <div id="containerProduct"></div>
+
+    <script>
+        var search =$('input[type="search"]');
+        search.on('keyup', searchAjax);
+
+        function searchAjax(e) {
+
+            var value = $(this).val();
+
+            $.ajax({
+                url: 'http://localhost/my_first_symfony/web/app_dev.php/fr/search-ajax',
+                data: 'data=' + value,
+                dataType: 'json',
+                success: onSuccesss
+
+            });
+        }
+            //console.log(data)
+
+        function onSuccesss(data) {
+            $('#containerProduct').html(" ")
+            $.each(data, createHTML)
+
+
+           // console.log(data);
+
+
+        }
+
+        function createHTML(index, value) {
+            //console.log(value.id);
+
+            $('#containerProduct').append('<p>' + value.titleFR +'</p>')
+
+        }
+
+
+
+    </script>
+
+{% endblock %}

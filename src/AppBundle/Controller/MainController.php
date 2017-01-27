@@ -29,21 +29,21 @@ class MainController extends Controller
 
         //die(dump($produits));
 
-        $eventDispatcher = $this->get('event_dispatcher');
+     /*   $eventDispatcher = $this->get('event_dispatcher');
 
         $event = new VisitContactEvent();
         $event->setIp($request->getClientIp());
         $eventDispatcher->dispatch(VisitEvents::CONTACT, $event);
 
         $fileCSV = file('../var/logs/contactFormLogs.csv');
-        //dump($fileCSV);
+        //dump($fileCSV);*/
 
 
         return $this->render('Public/Main/index.html.twig',
             [
                 'produits' => $produits,
                 'produitsCarou' => $produitsCarou,
-                'fileCSV' => $fileCSV
+                //'fileCSV' => $fileCSV
             ]);
 
     }
